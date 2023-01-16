@@ -1,0 +1,29 @@
+{
+  "name": "capstone-project-subletoti",
+  "version": "1.0.0",
+  "description": "Sublet app",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon backend/server.js",
+    "server": "nodemon backend/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yotamgra/capstone-project-subletoti.git"
+  },
+  "author": "Yotam Gt=ranada",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yotamgra/capstone-project-subletoti/issues"
+  },
+  "homepage": "https://github.com/yotamgra/capstone-project-subletoti#readme",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^6.8.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
