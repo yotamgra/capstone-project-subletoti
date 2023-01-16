@@ -7,4 +7,4 @@ router.route("/").get(getPosts).post(setPost)
 
 router.route("/:id").put(updatePost).delete(deletePost)
 
-export { router as postsRoutes };
+export { router as postRoutes };

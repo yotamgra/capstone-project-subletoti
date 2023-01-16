@@ -1,8 +1,9 @@
 import express from "express";
 import * as dotenv from "dotenv";
-import { postsRoutes } from "./routes/postsRoutes.js";
+import { postRoutes } from "./routes/postRoutes.js";
 import {errorHandler} from "./middleweare/errorMiddleweare.js"
 import { connectDB } from "./config/db.js";
+import { userRoutes } from "./routes/userRoutes.js";
 
 dotenv.config(); 
 const port = process.env.PORT || 5000;
@@ -15,7 +16,8 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use('/posts',postsRoutes)
+app.use('/posts',postRoutes)
+app.use('/users',userRoutes)
 
 app.use(errorHandler)
 
