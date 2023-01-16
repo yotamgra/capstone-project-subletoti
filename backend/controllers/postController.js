@@ -19,6 +19,7 @@ const setPost = asyncHandler(async (req, res) => {
     throw new Error("Post header, price and location are required");
   }
   const post = await Post.create({
+    user: req.user.id,
     header,
     price,
     location,
@@ -39,6 +40,18 @@ const updatePost = asyncHandler(async (req, res) => {
     throw new Error("Post not found");
   }
 
+  //Check for user
+  if (!req.user) {
+    res.status(401);
+    throw new Error("User not found");
+  }
+
+  //Make sure the loggedin user matches the item user
+  if (item.user.toString() !== req.user.id) {
+    res.status(401);
+    throw new Error("User not authorized");
+  }
+
   const updatedPost = await Post.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
   });
@@ -54,6 +67,17 @@ const deletePost = asyncHandler(async (req, res) => {
   if (!post) {
     res.status(400);
     throw new Error("Post not found");
+  }
+  //Check for user
+  if (!req.user) {
+    res.status(401);
+    throw new Error("User not found");
+  }
+
+  //Make sure the loggedin user matches the item user
+  if (item.user.toString() !== req.user.id) {
+    res.status(401);
+    throw new Error("User not authorized");
   }
 
   await post.remove();
