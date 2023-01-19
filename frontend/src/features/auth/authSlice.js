@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authService from "./authService";
 
-
 //Get user from localStorage
 const user = JSON.parse(localStorage.getItem("user"));
 
@@ -13,27 +12,26 @@ const initialState = {
   message: "",
 };
 
-
 //Register user
 export const register = createAsyncThunk(
-    "auth/register",
-    async (user, thunkAPI) => {
-      // return await authService.register(user);
-  
-      try {
-        return await authService.register(user);
-      } catch (error) {
-        const message =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-  
-        return thunkAPI.rejectWithValue(message);
-      }
+  "auth/register",
+  async (user, thunkAPI) => {
+    // return await authService.register(user);
+
+    try {
+      return await authService.register(user);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      return thunkAPI.rejectWithValue(message);
     }
-  );
+  }
+);
 
 export const authSlice = createSlice({
   name: "auth",
@@ -45,10 +43,14 @@ export const authSlice = createSlice({
       state.isError = false;
       state.message = "";
     },
+    logout: (state) => {
+      localStorage.removeItem("user");
+      state.user = null;
+    },
   },
   extraReducers: (builder) => {
     builder
-    .addCase(register.pending, (state) => {
+      .addCase(register.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(register.fulfilled, (state, action) => {
@@ -62,9 +64,9 @@ export const authSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
         state.user = null;
-      })
+      });
   },
 });
 
-export const { reset } = authSlice.actions;
+export const { reset, logout } = authSlice.actions;
 export default authSlice.reducer;

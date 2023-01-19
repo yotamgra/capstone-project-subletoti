@@ -16,10 +16,14 @@ const register = async (userData) => {
   }
 };
 
+//Logout user
+const logout = async () => {
+  localStorage.removeItem("user");
+};
+
 const authService = {
-    register
- 
-  };
-  
-  export default authService;
-  
+  register,
+  logout,
+};
+
+export default authService;
