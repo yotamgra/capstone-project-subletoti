@@ -3,7 +3,7 @@ import { getAllPosts } from "../features/posts/postSlice";
 import { useEffect } from "react";
 import Post from "./Post";
 
-function PostsDisplay() {
+function PostsDisplay({setIsChange}) {
     
   const { posts, isLoading, isError, message } = useSelector(
     (state) => state.posts
@@ -24,7 +24,7 @@ function PostsDisplay() {
   }
   return (
     <>
-    {posts.map(post=><Post post={post} key={post._id} />)}
+    {posts.map(post=><Post post={post} key={post._id} setIsChange={setIsChange} />)}
     </>
   )
 }

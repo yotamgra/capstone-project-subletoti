@@ -3,6 +3,7 @@ import postService from "./postService.js";
 
 const initialState = {
   posts: [],
+  editForm: {},
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -91,7 +92,15 @@ export const postSlice = createSlice({
   initialState,
   reducers: {
     reset: (state) => initialState,
+    setEditForm: (state, action) => {
+      console.log("slice");
+      state.editForm = action.payload;
+    },
+    resetEditForm: (state) => {
+      state.editForm = {};
+    },
   },
+
   extraReducers: (builder) => {
     builder
       .addCase(getAllPosts.pending, (state) => {
@@ -148,5 +157,5 @@ export const postSlice = createSlice({
   },
 });
 
-export const { reset } = postSlice.actions;
+export const { reset, setEditForm, resetEditForm } = postSlice.actions;
 export default postSlice.reducer;
