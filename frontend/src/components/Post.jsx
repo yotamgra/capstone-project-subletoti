@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { deletePost } from "../features/posts/postSlice";
+import { edit } from "../features/general/generalSlice";
 
 function Post({ post }) {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ function Post({ post }) {
         )}
       </div>
       {user._id === post.user ? (
+        <>
         <button
           onClick={() => {
             dispatch(deletePost(post._id));
@@ -29,6 +31,8 @@ function Post({ post }) {
         >
           Delete
         </button>
+        <button onClick={()=>dispatch(edit(post))}>Edit</button>
+        </>
       ) : (
         <></>
       )}

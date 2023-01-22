@@ -1,29 +1,31 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createPost } from "../features/posts/postSlice";
+import { restIsPostFormExpended } from "../features/general/generalSlice";
 
-function NewPostForm({setIsFormExpended}) {
+function NewPostForm() {
   const intialValue = {
     header: "",
     price: "",
     description: "",
-    location:"",
+    location: "",
     img: "",
   };
   const [post, setPost] = useState(intialValue);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const onSubmit = (e)=>{
+  const onSubmit = (e) => {
     e.preventDefault();
     dispatch(createPost({ post }));
     setPost(intialValue);
-
-  }
+  };
 
   return (
     <>
-    <button onClick={()=>setIsFormExpended(false)}>close form</button>
+      <button onClick={() => dispatch(restIsPostFormExpended())}>
+        close form
+      </button>
       <form onSubmit={onSubmit}>
         <div className="form-group">
           <label>Header</label>
@@ -76,9 +78,7 @@ function NewPostForm({setIsFormExpended}) {
           />
         </div>
         <div className="form-group">
-          <button type="submit">
-            Add post
-          </button>
+          <button type="submit">Add post</button>
         </div>
       </form>
     </>
