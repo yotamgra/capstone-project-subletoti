@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createPost } from "../features/posts/postSlice";
-import { restIsPostFormExpended } from "../features/general/generalSlice";
+import {
+  restIsPostFormExpended,
+  resetEdit,
+} from "../features/general/generalSlice";
 
 function NewPostForm() {
   const intialValue = {
+    _id: null,
     header: "",
     price: "",
     description: "",
@@ -15,15 +19,33 @@ function NewPostForm() {
 
   const dispatch = useDispatch();
 
+  const { isEdit, editForm } = useSelector((state) => state.general.edit);
+
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch(createPost({ post }));
     setPost(intialValue);
   };
 
+  const updatePost = (e) => {
+    e.preventDefault();
+  };
+
+  useEffect(() => {
+    if (isEdit) {
+      setPost(editForm);
+    }
+  }, [isEdit, setPost, editForm]);
+
   return (
     <>
-      <button onClick={() => dispatch(restIsPostFormExpended())}>
+      <button
+        onClick={() => {
+          dispatch(resetEdit());
+          setPost(intialValue);
+          dispatch(restIsPostFormExpended());
+        }}
+      >
         close form
       </button>
       <form onSubmit={onSubmit}>
@@ -78,7 +100,11 @@ function NewPostForm() {
           />
         </div>
         <div className="form-group">
-          <button type="submit">Add post</button>
+          {isEdit ? (
+            <button onClick={updatePost}>Save</button>
+          ) : (
+            <button type="submit">Add post</button>
+          )}
         </div>
       </form>
     </>

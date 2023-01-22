@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { deletePost } from "../features/posts/postSlice";
-import { edit } from "../features/general/generalSlice";
+import { edit, expendPostForm } from "../features/general/generalSlice";
 
 function Post({ post }) {
   const dispatch = useDispatch();
@@ -24,14 +24,21 @@ function Post({ post }) {
       </div>
       {user._id === post.user ? (
         <>
-        <button
-          onClick={() => {
-            dispatch(deletePost(post._id));
-          }}
-        >
-          Delete
-        </button>
-        <button onClick={()=>dispatch(edit(post))}>Edit</button>
+          <button
+            onClick={() => {
+              dispatch(deletePost(post._id));
+            }}
+          >
+            Delete
+          </button>
+          <button
+            onClick={() => {
+              dispatch(expendPostForm())
+              dispatch(edit(post));
+            }}
+          >
+            Edit
+          </button>
         </>
       ) : (
         <></>

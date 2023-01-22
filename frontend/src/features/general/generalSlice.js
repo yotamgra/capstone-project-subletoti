@@ -12,9 +12,9 @@ export const generalSlice = createSlice({
   name: "general",
   initialState,
   reducers: {
-    edit: (state, post) => {
+    edit: (state, action) => {
       state.edit.isEdit = true;
-      state.edit.editForm = post;
+      state.edit.editForm = action.payload;
     },
     resetEdit: (state) => {
       state.edit = initialState.edit;

@@ -26,7 +26,19 @@ const createPost = async (postData, token) => {
 
   return response.data;
 };
-//Create new post
+//Update post
+const updatePost = async (postData, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.put(API_URL, postData, config);
+
+  return response.data;
+};
+//Delete post
 const deletePost = async (postId, token) => {
   const config = {
     headers: {

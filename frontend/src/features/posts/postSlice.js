@@ -1,9 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import postService from "./postService.js";
 
-//Get user from localStorage
-const user = JSON.parse(localStorage.getItem("user"));
-
 const initialState = {
   posts: [],
   isError: false,
@@ -38,6 +35,25 @@ export const createPost = createAsyncThunk(
     try {
       const token = thunkAPI.getState().auth.user.token;
       return await postService.createPost(postData, token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+//Update post
+export const updatePost = createAsyncThunk(
+  "post/update",
+  async (postData, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      return await postService.updatePost(postData, token);
     } catch (error) {
       const message =
         (error.response &&
