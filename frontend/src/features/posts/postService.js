@@ -34,7 +34,7 @@ const updatePost = async (postData, token) => {
     },
   };
 
-  const response = await axios.put(API_URL, postData, config);
+  const response = await axios.put(API_URL + postData._id, postData, config);
 
   return response.data;
 };
@@ -51,6 +51,6 @@ const deletePost = async (postId, token) => {
   return response.data;
 };
 
-const postService = { getAllPosts, createPost, deletePost };
+const postService = { getAllPosts, createPost, deletePost, updatePost };
 
 export default postService;

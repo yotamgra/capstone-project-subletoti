@@ -33,7 +33,8 @@ const setPost = asyncHandler(async (req, res) => {
 //@route   PUT /posts/:id
 //@access  Private
 const updatePost = asyncHandler(async (req, res) => {
-  console.log(req.body);
+  console.log("body",req.body);
+  console.log("req.params.id",req.params.id);
   const post = await Post.findById(req.params.id);
   if (!post) {
     res.status(400);

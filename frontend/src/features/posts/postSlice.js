@@ -3,7 +3,7 @@ import postService from "./postService.js";
 
 const initialState = {
   posts: [],
-  editForm: {},
+  edit: { editForm: {}, isEdit: false },
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -93,16 +93,18 @@ export const postSlice = createSlice({
   reducers: {
     reset: (state) => initialState,
     setEditForm: (state, action) => {
-      console.log("slice");
-      state.editForm = action.payload;
+      state.edit.isEdit = true;
+      state.edit.editForm = action.payload;
     },
     resetEditForm: (state) => {
-      state.editForm = {};
+      state.edit.editForm = {};
+      state.edit.isEdit = false;
     },
   },
 
   extraReducers: (builder) => {
     builder
+      //getAllPosts
       .addCase(getAllPosts.pending, (state) => {
         state.isLoading = true;
       })
@@ -118,6 +120,7 @@ export const postSlice = createSlice({
         state.message = action.payload;
         state.user = null;
       })
+      //createPost
       .addCase(createPost.pending, (state) => {
         state.isLoading = true;
       })
@@ -133,6 +136,7 @@ export const postSlice = createSlice({
         state.message = action.payload;
         state.user = null;
       })
+      //deletePost
       .addCase(deletePost.pending, (state) => {
         state.isLoading = true;
       })
@@ -148,6 +152,28 @@ export const postSlice = createSlice({
         });
       })
       .addCase(deletePost.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        state.message = action.payload;
+        state.user = null;
+      })
+      //updatePost
+      .addCase(updatePost.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updatePost.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.posts.find((post, index) => {
+          if (post._id === action.payload._id) {
+            state.posts.splice(index, 1, action.payload);
+            return true;
+          }
+          return false;
+        });
+      })
+      .addCase(updatePost.rejected, (state, action) => {
         state.isLoading = false;
         state.isSuccess = false;
         state.isError = true;

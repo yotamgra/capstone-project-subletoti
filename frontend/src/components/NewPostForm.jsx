@@ -1,8 +1,13 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createPost } from "../features/posts/postSlice";
+import {
+  createPost,
+  updatePost,
+  resetEditForm,
+  getAllPosts,
+} from "../features/posts/postSlice";
 
-function NewPostForm({ isChange, setIsChange }) {
+function NewPostForm() {
   const intialValue = {
     _id: null,
     header: "",
@@ -17,24 +22,31 @@ function NewPostForm({ isChange, setIsChange }) {
 
   const dispatch = useDispatch();
 
-  const { editForm } = useSelector((state) => state.posts.editForm);
+  const { editForm, isEdit } = useSelector((state) => state.posts.edit);
 
-  const onSubmit = (e) => {
-    e.preventDefault();
+  const onSubmit = () => {
+    
     dispatch(createPost({ post }));
     setPost(intialValue);
+    setIsPostFormExpended(false)
   };
 
-  const updatePost = (e) => {
-    e.preventDefault();
+  const onUpdatePost = () => {
+    
+    dispatch(updatePost(post));
+    dispatch(resetEditForm())
+    setPost(intialValue)
+    setIsPostFormExpended(false)
+    
+    
   };
 
   useEffect(() => {
-    if (isChange && editForm) {
+    if (isEdit) {
       setPost(editForm);
       setIsPostFormExpended(true);
     }
-  }, [setPost, editForm, isChange]);
+  }, [setPost, editForm, isEdit]);
 
   return (
     <>
@@ -42,14 +54,14 @@ function NewPostForm({ isChange, setIsChange }) {
         <>
           <button
             onClick={() => {
-              // dispatch(resetEdit());
+              dispatch(resetEditForm());
               setPost(intialValue);
               setIsPostFormExpended(false);
             }}
           >
             close form
           </button>
-          <form onSubmit={onSubmit}>
+          <form onSubmit={(e)=>e.preventDefault()}>
             <div className="form-group">
               <label>Header</label>
               <input
@@ -103,10 +115,10 @@ function NewPostForm({ isChange, setIsChange }) {
               />
             </div>
             <div className="form-group">
-              {editForm ? (
-                <button onClick={updatePost}>Save</button>
+              {isEdit ? (
+                <button onClick={onUpdatePost}>Save</button>
               ) : (
-                <button type="submit">Add post</button>
+                <button type="submit" onClick={onSubmit}>Add post</button>
               )}
             </div>
           </form>

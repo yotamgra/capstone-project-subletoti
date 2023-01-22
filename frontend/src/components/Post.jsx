@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { deletePost, setEditForm } from "../features/posts/postSlice.js";
 
-function Post({ post, setIsChange }) {
+function Post({ post }) {
   const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.auth);
@@ -32,7 +32,6 @@ function Post({ post, setIsChange }) {
           </button>
           <button
             onClick={() => {
-              setIsChange(true)
               dispatch(setEditForm(post));
             }}
           >

@@ -5,15 +5,11 @@ import PostsDisplay from "../components/PostsDisplay";
 import NewPostForm from "../components/NewPostForm";
 
 function Dashboard() {
-
-
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.auth);
-
-  const [isChange, setIsChange] = useState(false)
 
   useEffect(() => {
     if (!user) {
@@ -25,9 +21,9 @@ function Dashboard() {
     <div>
       <h1>Welcome {user && user.name}</h1>
 
-      <NewPostForm isChange={isChange} setIsChange={setIsChange} />
+      <NewPostForm />
 
-      {user && <PostsDisplay setIsChange={setIsChange} />}
+      {user && <PostsDisplay />}
     </div>
   );
 }
