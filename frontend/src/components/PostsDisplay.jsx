@@ -13,7 +13,8 @@ function PostsDisplay() {
 
   useEffect(() => {
     if (isError) {
-      alert(message)
+      // alert(message)
+      console.log("error",message)
     }
     dispatch(getAllPosts());
   }, [dispatch, isError, message]);

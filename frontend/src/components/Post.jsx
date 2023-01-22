@@ -10,7 +10,12 @@ function Post({ post }) {
       <div>
         <img src={post.img} alt={post.header}></img>
       </div>
-      <div>posted at {new Date(post.createdAt).toLocaleString("en-US")}</div>
+      <div>
+        posted at{" "}
+        {new Date(post.createdAt).toLocaleString("en-US", {hour: '2-digit', minute:'2-digit'}, {
+          timeZone: `Israel`,
+        })}
+      </div>
       {user._id === post.user ? (
         <button value={post._id} onClick={() => {}}>
           Delete
