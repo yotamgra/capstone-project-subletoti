@@ -26,7 +26,7 @@ function Dashboard() {
    
     {user && <PostsDisplay />}
    
-  </div>;
+  </div> ;
 }
 
 export default Dashboard;

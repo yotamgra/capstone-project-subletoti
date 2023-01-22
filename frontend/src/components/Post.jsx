@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import { deletePost } from "../features/posts/postSlice";
 
 function Post({ post }) {
   const dispatch = useDispatch();
@@ -12,12 +13,20 @@ function Post({ post }) {
       </div>
       <div>
         posted at{" "}
-        {new Date(post.createdAt).toLocaleString("en-US", {hour: '2-digit', minute:'2-digit'}, {
-          timeZone: `Israel`,
-        })}
+        {new Date(post.createdAt).toLocaleString(
+          "en-US",
+          { hour: "2-digit", minute: "2-digit" },
+          {
+            timeZone: `Israel`,
+          }
+        )}
       </div>
       {user._id === post.user ? (
-        <button value={post._id} onClick={() => {}}>
+        <button
+          onClick={() => {
+            dispatch(deletePost(post._id));
+          }}
+        >
           Delete
         </button>
       ) : (

@@ -26,7 +26,19 @@ const createPost = async (postData, token) => {
 
   return response.data;
 };
+//Create new post
+const deletePost = async (postId, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
 
-const postService = { getAllPosts, createPost };
+  const response = await axios.delete(API_URL + postId, config);
+
+  return response.data;
+};
+
+const postService = { getAllPosts, createPost, deletePost };
 
 export default postService;
