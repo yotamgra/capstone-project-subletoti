@@ -5,7 +5,7 @@ const postSchema = mongoose.Schema(
     user: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: 'User'
+      ref: "User",
     },
     header: {
       type: String,
@@ -23,6 +23,12 @@ const postSchema = mongoose.Schema(
       type: String,
     },
     img: {
+      type: String,
+    },
+    availableFrom: {
+      type: String,
+    },
+    availableUntil: {
       type: String,
     },
   },
