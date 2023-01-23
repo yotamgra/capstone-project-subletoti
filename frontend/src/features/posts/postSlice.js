@@ -3,7 +3,7 @@ import postService from "./postService.js";
 
 const initialState = {
   posts: [],
-  edit: { editForm: {}, isEdit: false },
+  editForm: null,
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -93,12 +93,10 @@ export const postSlice = createSlice({
   reducers: {
     reset: (state) => initialState,
     setEditForm: (state, action) => {
-      state.edit.isEdit = true;
-      state.edit.editForm = action.payload;
+      state.editForm = action.payload;
     },
     resetEditForm: (state) => {
-      state.edit.editForm = {};
-      state.edit.isEdit = false;
+      state.editForm = null;
     },
   },
 

@@ -4,7 +4,7 @@ import {
   createPost,
   updatePost,
   resetEditForm,
-  getAllPosts,
+  
 } from "../features/posts/postSlice";
 
 function NewPostForm() {
@@ -22,7 +22,7 @@ function NewPostForm() {
 
   const dispatch = useDispatch();
 
-  const { editForm, isEdit } = useSelector((state) => state.posts.edit);
+  const { editForm } = useSelector((state) => state.posts);
 
   const onSubmit = () => {
     
@@ -42,11 +42,11 @@ function NewPostForm() {
   };
 
   useEffect(() => {
-    if (isEdit) {
+    if (editForm) {
       setPost(editForm);
       setIsPostFormExpended(true);
     }
-  }, [setPost, editForm, isEdit]);
+  }, [setPost, editForm]);
 
   return (
     <>
@@ -115,7 +115,7 @@ function NewPostForm() {
               />
             </div>
             <div className="form-group">
-              {isEdit ? (
+              {editForm ? (
                 <button onClick={onUpdatePost}>Save</button>
               ) : (
                 <button type="submit" onClick={onSubmit}>Add post</button>
