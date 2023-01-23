@@ -14,12 +14,29 @@ function Post({ post }) {
       <div>
         posted at{" "}
         {new Date(post.createdAt).toLocaleString(
-          "en-US",
-          { hour: "2-digit", minute: "2-digit" },
+          "es-CO",
+          { year:"2-digit", month:"2-digit", day:"2-digit", hour: "2-digit", minute: "2-digit" },
           {
             timeZone: `Israel`,
           }
         )}
+      </div>
+      <div>
+        <h6>Dates</h6>
+        <p>From {new Date(post.availableFrom).toLocaleString(
+          "es-CO",
+          { year:"2-digit", month:"2-digit", day:"2-digit" },
+          {
+            timeZone: `Israel`,
+          }
+        )}</p>
+        <p>Until {new Date(post.availableUntil).toLocaleString(
+          "es-CO",
+          {year:"2-digit", month:"2-digit", day:"2-digit" },
+          {
+            timeZone: `Israel`,
+          }
+        )}</p>
       </div>
       {user._id === post.user ? (
         <>

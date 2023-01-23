@@ -6,6 +6,7 @@ import {
   resetEditForm,
   
 } from "../features/posts/postSlice";
+import DatePicker from "./DatePicker";
 
 function NewPostForm() {
   const intialValue = {
@@ -15,6 +16,8 @@ function NewPostForm() {
     description: "",
     location: "",
     img: "",
+    availableFrom:"",
+    availableUntil:""
   };
   const [post, setPost] = useState(intialValue);
 
@@ -29,6 +32,8 @@ function NewPostForm() {
     dispatch(createPost({ post }));
     setPost(intialValue);
     setIsPostFormExpended(false)
+    console.log("availableFrom",post.availableFrom)
+    console.log("availableUntil",post.availableUntil)
   };
 
   const onUpdatePost = () => {
@@ -114,6 +119,7 @@ function NewPostForm() {
                 onChange={(e) => setPost({ ...post, img: e.target.value })}
               />
             </div>
+            <DatePicker post={post} setPost={setPost} />
             <div className="form-group">
               {editForm ? (
                 <button onClick={onUpdatePost}>Save</button>
