@@ -77,7 +77,7 @@ export default function AuthMenu() {
         aria-expanded={open ? "true" : undefined}
         aria-haspopup="true"
         onClick={handleToggle}
-        className="auth-btn"
+        className="btn"
         sx={{ border: 1, borderColor: "#dddddd", borderRadius: 50 }}
       >
         <MenuIcon style={iconMunueStyle} />

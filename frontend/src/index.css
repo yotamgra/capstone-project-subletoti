@@ -1,14 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope&display=swap");
+
+body {
+  font-family: "Manrope", sans-serif;
+}
+
 .rdrDefinedRangesWrapper {
   display: none;
 }
 
-.auth-btn {
+.btn {
   background: transparent;
   cursor: pointer;
   margin: 0;
   border: 1px solid #dddddd;
+  border-radius: 20px;
+  color: rgba(113, 113, 113, 255);
 }
-.auth-btn:hover {
+.btn:hover {
   box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -30,12 +38,45 @@ header {
   justify-content: center;
 }
 
-.img{
+.img {
   width: 300px;
+  height: 250px;
   border-radius: 8px;
   object-fit: cover;
+  margin: 10px;
 }
 
-.post-container{
-  border: 2px solid black;
+.post-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  width: 300px;
+  /* border: 2px solid black; */
+}
+.posts-container {
+  flex-wrap: wrap;
+}
+.post-info {
+  width: 100%;
+}
+.post-header {
+  margin: 0;
+}
+.inline {
+  display: inline;
+}
+.price-container {
+  width: 100%;
+}
+.bold {
+  font-weight: bold;
+}
+
+.gap {
+  gap: 3px;
+}
+.desc {
+  letter-spacing: 2px;
+  margin: 0;
 }

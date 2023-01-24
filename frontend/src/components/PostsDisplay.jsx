@@ -4,19 +4,17 @@ import { useEffect } from "react";
 import Post from "./Post";
 import { Container } from "@mui/material";
 
-
 function PostsDisplay() {
-    
   const { posts, isLoading, isError, message } = useSelector(
     (state) => state.posts
   );
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (isError) {
       // alert(message)
-      console.log("error",message)
+      console.log("error", message);
     }
     dispatch(getAllPosts());
   }, [dispatch, isError, message]);
@@ -26,9 +24,13 @@ function PostsDisplay() {
   }
   return (
     <>
-    {posts.map(post=><Post post={post} key={post._id}  />)}
+      <div className="flex posts-container">
+        {posts.map((post) => (
+          <Post post={post} key={post._id} />
+        ))}
+      </div>
     </>
-  )
+  );
 }
 
-export default PostsDisplay
+export default PostsDisplay;
