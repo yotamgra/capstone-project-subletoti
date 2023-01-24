@@ -4,13 +4,8 @@ import { DateRangePicker } from "react-date-range";
 import { useState } from "react";
 
 function DatePicker({ post, setPost }) {
-  let disablePast = [];
-  for (let i = 0; i < 100; i++) {
-    disablePast.push(
-      new Date(new Date().setDate(new Date().getDate() - 1 - i))
-    );
-  }
 
+  const yesterday = new Date(new Date().setDate(new Date().getDate() - 1 ))
   const handleSelect = (ranges) => {
     const startDate = ranges.selection.startDate;
     const endDate = ranges.selection.endDate;
@@ -27,7 +22,13 @@ function DatePicker({ post, setPost }) {
     <DateRangePicker
       ranges={[selectionRange]}
       onChange={handleSelect}
-      disabledDates={disablePast}
+      // disabledDates={disablePast}
+      months={2}
+      direction="horizontal"
+      disabledDay={(d) => {
+        
+        return d < yesterday;
+      }}
     />
   );
 }

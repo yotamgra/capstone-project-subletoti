@@ -16,6 +16,8 @@ function Header() {
 
   return (
     <header>
+      <h3>SUBLET-OTI</h3>
+      <button className="auth-btn"></button>
       <ul>
         {user ? (
           <li>
