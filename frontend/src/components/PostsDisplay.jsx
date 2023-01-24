@@ -2,6 +2,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { getAllPosts } from "../features/posts/postSlice";
 import { useEffect } from "react";
 import Post from "./Post";
+import { Container } from "@mui/material";
+
 
 function PostsDisplay() {
     
