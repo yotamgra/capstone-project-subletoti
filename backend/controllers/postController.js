@@ -13,7 +13,15 @@ const getPosts = asyncHandler(async (req, res) => {
 //@route   POST /posts
 //@access  Private
 const setPost = asyncHandler(async (req, res) => {
-  const { header, price, location, description, img, availableFrom, availableUntil } = req.body.post;
+  const {
+    header,
+    price,
+    location,
+    description,
+    imagesGallery,
+    availableFrom,
+    availableUntil,
+  } = req.body.post;
   if (!header || !price || !location) {
     res.status(400);
     throw new Error("Post header, price and location are required");
@@ -24,10 +32,36 @@ const setPost = asyncHandler(async (req, res) => {
     price,
     location,
     description: description || "",
-    img: img || "",
+    imagesGallery: imagesGallery || [],
     availableFrom,
-    availableUntil
+    availableUntil,
   });
+  res.status(200).json(post);
+});
+
+//@desc    Get post by id
+//@route   PUT /posts/:id
+//@access  Private
+const getPostById = asyncHandler(async (req, res) => {
+  console.log("req.params.id", req.params.id);
+  const post = await Post.findById(req.params.id);
+  if (!post) {
+    res.status(400);
+    throw new Error("Post not found");
+  }
+
+  //Check for user
+  if (!req.user) {
+    res.status(401);
+    throw new Error("User not found");
+  }
+
+  //Make sure the loggedin user matches the post user
+  if (post.user.toString() !== req.user.id) {
+    res.status(401);
+    throw new Error("User not authorized");
+  }
+
   res.status(200).json(post);
 });
 
@@ -35,8 +69,8 @@ const setPost = asyncHandler(async (req, res) => {
 //@route   PUT /posts/:id
 //@access  Private
 const updatePost = asyncHandler(async (req, res) => {
-  console.log("body",req.body);
-  console.log("req.params.id",req.params.id);
+  console.log("body", req.body);
+  console.log("req.params.id", req.params.id);
   const post = await Post.findById(req.params.id);
   if (!post) {
     res.status(400);
@@ -87,4 +121,4 @@ const deletePost = asyncHandler(async (req, res) => {
   res.status(200).json({ id: req.params.id });
 });
 
-export { getPosts, setPost, updatePost, deletePost };
+export { getPosts, setPost, getPostById, updatePost, deletePost };

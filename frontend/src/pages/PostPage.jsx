@@ -1,11 +1,42 @@
-import { useLocation } from 'react-router-dom'
+import { useLocation } from "react-router-dom";
+import ImgesGallery from "../components/ImagesGallery";
+import { useSelector, useDispatch } from "react-redux";
+import { getPostById } from "../features/posts/postSlice";
+import { useEffect } from "react";
 
 function PostPage() {
-    const location = useLocation();
-    console.log(location.pathname.split('/')[2]);
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const postId = location.pathname.split("/")[2];
+  const { singlePost, isLoading, isError, message } = useSelector(
+    (state) => state.posts
+  );
+
+  useEffect(() => {
+    if (isError) {
+      // alert(message)
+      console.log("error", message);
+    }
+    dispatch(getPostById(postId));
+  }, [dispatch, message, postId, isError]);
+
+  if (isLoading) {
+    return <h3>Loading</h3>;
+  }
+  console.log("single", singlePost);
   return (
-    <div>PostPage {location.pathname}</div>
-  )
+    <>
+      {singlePost ? (
+        <>
+          <h1>{singlePost.header}</h1>
+          <ImgesGallery gallery={singlePost.imagesGallery} />
+          
+        </>
+      ) : (
+        <></>
+      )}
+    </>
+  );
 }
 
-export default PostPage
+export default PostPage;

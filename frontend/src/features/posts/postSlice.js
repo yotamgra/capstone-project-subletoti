@@ -3,6 +3,7 @@ import postService from "./postService.js";
 
 const initialState = {
   posts: [],
+  singlePost: null,
   editForm: null,
   isError: false,
   isSuccess: false,
@@ -29,12 +30,32 @@ export const getAllPosts = createAsyncThunk(
     }
   }
 );
+//Get post by Id
+export const getPostById = createAsyncThunk(
+  "post/getPostById",
+  async (postId, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      return await postService.getPostById(postId,token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 //Create new post
 export const createPost = createAsyncThunk(
   "post/create",
   async (postData, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
+      console.log("postData Slice",postData)
       return await postService.createPost(postData, token);
     } catch (error) {
       const message =
@@ -112,6 +133,22 @@ export const postSlice = createSlice({
         state.posts = action.payload;
       })
       .addCase(getAllPosts.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        state.message = action.payload;
+        state.user = null;
+      })
+      //getPostById
+      .addCase(getPostById.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getPostById.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.singlePost = action.payload;
+      })
+      .addCase(getPostById.rejected, (state, action) => {
         state.isLoading = false;
         state.isSuccess = false;
         state.isError = true;

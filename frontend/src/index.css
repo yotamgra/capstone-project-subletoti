@@ -44,6 +44,7 @@ header {
   border-radius: 8px;
   object-fit: cover;
   margin: 10px;
+  cursor: pointer;
 }
 
 .post-container {

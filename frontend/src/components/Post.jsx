@@ -1,17 +1,22 @@
 import { useDispatch, useSelector } from "react-redux";
 import { deletePost, setEditForm } from "../features/posts/postSlice.js";
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
 import StarRateIcon from "@mui/icons-material/StarRate";
 
 function Post({ post }) {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
+  console.log(post);
   const { user } = useSelector((state) => state.auth);
   return (
-    <div className="post-container" onClick={()=> navigate(`/post/${post._id}`)}>
-      <img className="img" src={post.img} alt={post.header}></img>
+    <div className="post-container">
+      <img
+        className="img"
+        onClick={() => navigate(`/post/${post._id}`)}
+        src={post.imagesGallery[0]}
+        alt={post.header}
+      ></img>
       <div className="post-info">
         <div className="flex">
           <h3 className="post-header">{post.header}</h3>
@@ -20,9 +25,9 @@ function Post({ post }) {
             <p>4.7 (19)</p>
           </div>
         </div>
-      <div className="description">
-        <p className="desc">{post.description}</p>
-      </div>
+        <div className="description">
+          <p className="desc">{post.description}</p>
+        </div>
         {/* <div>
           posted at{" "}
           {new Date(post.createdAt).toLocaleString(

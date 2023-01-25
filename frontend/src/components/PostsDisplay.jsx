@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getAllPosts } from "../features/posts/postSlice";
 import { useEffect } from "react";
 import Post from "./Post";
-import { Container } from "@mui/material";
+
 
 function PostsDisplay() {
   const { posts, isLoading, isError, message } = useSelector(
@@ -26,7 +26,7 @@ function PostsDisplay() {
     <>
       <div className="flex posts-container">
         {posts.map((post) => (
-          <Post post={post} key={post._id} />
+          <Post post={post} key={post._id}  />
         ))}
       </div>
     </>

@@ -4,7 +4,6 @@ import {
   createPost,
   updatePost,
   resetEditForm,
-  
 } from "../features/posts/postSlice";
 import DatePicker from "./DatePicker";
 
@@ -15,11 +14,12 @@ function NewPostForm() {
     price: "",
     description: "",
     location: "",
-    img: "",
-    availableFrom:"",
-    availableUntil:""
+    imagesGallery: [],
+    availableFrom: "",
+    availableUntil: "",
   };
   const [post, setPost] = useState(intialValue);
+  const [img, setImg] = useState("");
 
   const [isPostFormExpended, setIsPostFormExpended] = useState(false);
 
@@ -28,22 +28,17 @@ function NewPostForm() {
   const { editForm } = useSelector((state) => state.posts);
 
   const onSubmit = () => {
-    
+    console.log("postSubmit",post)
     dispatch(createPost({ post }));
     setPost(intialValue);
-    setIsPostFormExpended(false)
-    console.log("availableFrom",post.availableFrom)
-    console.log("availableUntil",post.availableUntil)
+    setIsPostFormExpended(false);
   };
 
   const onUpdatePost = () => {
-    
     dispatch(updatePost(post));
-    dispatch(resetEditForm())
-    setPost(intialValue)
-    setIsPostFormExpended(false)
-    
-    
+    dispatch(resetEditForm());
+    setPost(intialValue);
+    setIsPostFormExpended(false);
   };
 
   useEffect(() => {
@@ -66,7 +61,7 @@ function NewPostForm() {
           >
             close form
           </button>
-          <form onSubmit={(e)=>e.preventDefault()}>
+          <form onSubmit={(e) => e.preventDefault()}>
             <div className="form-group">
               <label>Header</label>
               <input
@@ -115,16 +110,27 @@ function NewPostForm() {
                 type="text"
                 name="img"
                 id="img"
-                value={post.img}
-                onChange={(e) => setPost({ ...post, img: e.target.value })}
+                value={img}
+                onChange={(e) => setImg(e.target.value)}
               />
+              <button
+                onClick={(e) => {
+                  post.imagesGallery.push(img);
+                  setImg("");
+                  setPost({ ...post });
+                }}
+              >
+                add image
+              </button>
             </div>
             <DatePicker post={post} setPost={setPost} />
             <div className="form-group">
               {editForm ? (
                 <button onClick={onUpdatePost}>Save</button>
               ) : (
-                <button type="submit" onClick={onSubmit}>Add post</button>
+                <button type="submit" onClick={onSubmit}>
+                  Add post
+                </button>
               )}
             </div>
           </form>
