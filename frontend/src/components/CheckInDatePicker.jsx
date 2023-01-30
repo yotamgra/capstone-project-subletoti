@@ -3,9 +3,8 @@ import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRangePicker } from "react-date-range";
 import { useState } from "react";
 
-function DatePicker({ post, setPost }) {
-
-  const today = new Date()
+function CheckInDatePicker({ post, setPost }) {
+  const today = new Date();
   const handleSelect = (ranges) => {
     const startDate = ranges.selection.startDate;
     const endDate = ranges.selection.endDate;
@@ -22,16 +21,15 @@ function DatePicker({ post, setPost }) {
     <DateRangePicker
       ranges={[selectionRange]}
       onChange={handleSelect}
-      // disabledDates={disablePast}
       months={2}
       direction="horizontal"
       // disabledDay={(d) => {
-        
+
       //   return d < yesterday;
       // }}
-      minDate = {today}
+      minDate={today}
     />
   );
 }
 
-export default DatePicker;
+export default CheckInDatePicker;
