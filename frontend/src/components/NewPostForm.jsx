@@ -123,6 +123,7 @@ function NewPostForm() {
                 add image
               </button>
             </div>
+            <label htmlFor="text">Disabeled Dates:</label>
             <DatePicker post={post} setPost={setPost} />
             <div className="form-group">
               {editForm ? (

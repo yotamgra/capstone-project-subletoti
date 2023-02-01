@@ -7,6 +7,9 @@ body {
 .rdrDefinedRangesWrapper {
   display: none;
 }
+.rdrMonth {
+  /* display: none; */
+}
 
 .btn {
   background: transparent;
@@ -36,6 +39,17 @@ header {
 }
 .center {
   justify-content: center;
+}
+.date{
+  color: #849095;
+
+ 
+}
+.date-range{
+  /* justify-content:center; */
+  gap:30px;
+  background-color: rgb(239, 242, 247);
+  width: 50%;
 }
 
 .img {
@@ -81,4 +95,3 @@ header {
   letter-spacing: 2px;
   margin: 0;
 }
-

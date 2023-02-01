@@ -3,6 +3,7 @@ import ImgesGallery from "../components/ImagesGallery";
 import { useSelector, useDispatch } from "react-redux";
 import { getPostById } from "../features/posts/postSlice";
 import { useEffect } from "react";
+import DatePickerAntd from "../components/DatePickerAntd";
 
 function PostPage() {
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ function PostPage() {
         <>
           <h1>{singlePost.header}</h1>
           <ImgesGallery gallery={singlePost.imagesGallery} />
-          
+          <DatePickerAntd />
         </>
       ) : (
         <></>
