@@ -1,9 +1,9 @@
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRangePicker } from "react-date-range";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import dayjs from "dayjs";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 
 function DatePicker({ post, setPost }) {
   const [selectionRange, setSelectionRange] = useState({
@@ -40,10 +40,11 @@ function DatePicker({ post, setPost }) {
   };
 
   const onDisableButton = () => {
-    const startDate = selectionRange.startDate;
-    const endDate = selectionRange.endDate;
+    const { startDate, endDate } = selectionRange;
+
     setDatesDis([...datesDis, ...getArrayDates(startDate, endDate)]);
-    setDisRanges([...disRanges, { start: startDate, end: endDate }]);
+    setDisRanges([...disRanges, { startDate, endDate }]);
+    // setDisRanges([])
   };
 
   const getArrayDates = (startDate, stopDate) => {
@@ -54,6 +55,26 @@ function DatePicker({ post, setPost }) {
       currentDate = currentDate.add(1, "day");
     }
     return dateArray;
+  };
+  const onUndo = (range, index) => {
+    console.log(range);
+    const { startDate, endDate } = range;
+    const arrayToRemove = getArrayDates(startDate, endDate);
+    arrayToRemove.map((dateToRemove) =>
+      datesDis.find((disDate, index) => {
+        if (
+          dayjs(disDate).format(`MMM D, YYYY`) ===
+          dayjs(dateToRemove).format(`MMM D, YYYY`)
+        ) {
+          datesDis.splice(index, 1);
+          return true;
+        }
+        return false;
+      })
+    );
+    setDatesDis([...datesDis]);
+    disRanges.splice(index, 1);
+    setDisRanges([...disRanges]);
   };
 
   return (
@@ -67,15 +88,23 @@ function DatePicker({ post, setPost }) {
         minDate={today}
       />
       <button onClick={onDisableButton}>Disable these dates</button>
-      {disRanges ??
-        disRanges.map((range) => (
-          <Box className="flex date-range">
+
+      {disRanges.length > 0 &&
+        disRanges.map((range, index) => (
+          <Box key={range.startDate} className="flex date-range">
             <Box className="flex date">
               <p>
-                {dayjs(range.start).format(`MMM D, YYYY`).toString()} -{" "}
-                {dayjs(range.end).format(`MMM D, YYYY`).toString()}
+                {dayjs(range.startDate).format(`MMM D, YYYY`).toString()} -{" "}
+                {dayjs(range.endDate).format(`MMM D, YYYY`).toString()}
               </p>
             </Box>
+            <Button
+              onClick={() => {
+                onUndo(range, index);
+              }}
+            >
+              Undo
+            </Button>
           </Box>
         ))}
     </>

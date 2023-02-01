@@ -7,7 +7,6 @@ import StarRateIcon from "@mui/icons-material/StarRate";
 function Post({ post }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log(post);
   const { user } = useSelector((state) => state.auth);
   return (
     <div className="post-container">
