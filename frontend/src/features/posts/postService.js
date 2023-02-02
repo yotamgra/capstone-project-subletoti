@@ -63,6 +63,12 @@ const deletePost = async (postId, token) => {
   return response.data;
 };
 
-const postService = { getAllPosts, createPost, getPostById, deletePost, updatePost };
+const postService = {
+  getAllPosts,
+  createPost,
+  getPostById,
+  deletePost,
+  updatePost,
+};
 
 export default postService;

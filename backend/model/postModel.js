@@ -28,7 +28,9 @@ const postSchema = mongoose.Schema(
     disabledDates: {
       type: [String],
     },
- 
+    disabledRanges: {
+      type: [{ startDate: { type: String }, endDate: { type: String } }],
+    },
   },
   { timestamps: true }
 );

@@ -2,18 +2,19 @@ import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRangePicker } from "react-date-range";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { resetEditForm } from "../features/posts/postSlice";
 import dayjs from "dayjs";
 import { Box, Button } from "@mui/material";
 
-function DatePicker({ post, setPost, editDisDates }) {
+function DatePicker({ post, setPost, editForm }) {
   const [selectionRange, setSelectionRange] = useState({
     startDate: new Date(),
     endDate: new Date(),
     key: "selection",
   });
-  const [disRanges, setDisRanges] = useState([]);
 
-  const [datesDis, setDatesDis] = useState([]);
+  const dispatch = useDispatch();
 
   const today = new Date();
 
@@ -22,15 +23,16 @@ function DatePicker({ post, setPost, editDisDates }) {
   };
 
   const disabledDay = (d) => {
-    if (datesDis.length) {
+    const { disabledDates } = post;
+    if (disabledDates.length) {
       let condition =
         dayjs(d).format(`MMM D, YYYY`) ===
-        dayjs(datesDis[0]).format(`MMM D, YYYY`);
-      for (let i = 1; i < datesDis.length; i++) {
+        dayjs(disabledDates[0]).format(`MMM D, YYYY`);
+      for (let i = 1; i < disabledDates.length; i++) {
         condition =
           condition ||
           dayjs(d).format(`MMM D, YYYY`) ===
-            dayjs(datesDis[i]).format(`MMM D, YYYY`);
+            dayjs(disabledDates[i]).format(`MMM D, YYYY`);
       }
       return condition;
     }
@@ -39,12 +41,18 @@ function DatePicker({ post, setPost, editDisDates }) {
   const onDisableButton = () => {
     const { startDate, endDate } = selectionRange;
 
-    setDatesDis([...datesDis, ...getArrayDates(startDate, endDate)]);
-    setPost({ ...post, disabledDates: [...datesDis] });
-    setDisRanges([...disRanges, { startDate, endDate }]);
+    setPost({
+      ...post,
+      disabledDates: [
+        ...post.disabledDates,
+        ...getArrayDates(startDate, endDate),
+      ],
+      disabledRanges: [...post.disabledRanges, { startDate, endDate }],
+    });
   };
 
   const getArrayDates = (startDate, stopDate) => {
+    console.log("getArrayDates")
     const dateArray = [];
     let currentDate = dayjs(startDate);
     while (currentDate <= stopDate) {
@@ -54,32 +62,47 @@ function DatePicker({ post, setPost, editDisDates }) {
     return dateArray;
   };
   const onUndo = (range, index) => {
-    console.log(range);
+    console.log("range", range);
+    console.log("index", index);
+    const { disabledDates } = post;
     const { startDate, endDate } = range;
+    console.log("startDate",startDate)
+    console.log("endDate",endDate)
+    console.log("disabledDates", disabledDates);
     const arrayToRemove = getArrayDates(startDate, endDate);
+    console.log("arrayToRemove",arrayToRemove)
     arrayToRemove.map((dateToRemove) =>
-      datesDis.find((disDate, index) => {
+      disabledDates.find((disDate, index) => {
+        console.log( dayjs(disDate).format(`D`))
         if (
           dayjs(disDate).format(`MMM D, YYYY`) ===
           dayjs(dateToRemove).format(`MMM D, YYYY`)
         ) {
-          datesDis.splice(index, 1);
+          disabledDates.splice(index, 1);
           return true;
         }
         return false;
       })
     );
-    setDatesDis([...datesDis]);
-    disRanges.splice(index, 1);
-    setDisRanges([...disRanges]);
-    setPost({ ...post, disabledDates: [...datesDis] });
+    post.disabledRanges.splice(index, 1);
+
+    setPost({
+      ...post,
+      disabledDates: [...disabledDates],
+      disabledRanges: [...post.disabledRanges],
+    });
   };
   useEffect(() => {
-    if (editDisDates?.length > 0) {
-      console.log("editDisDates", editDisDates);
-      setDatesDis([...editDisDates]);
+    if (editForm) {
+      console.log("editForm", editForm);
+      setPost({
+        ...editForm,
+        disabledDates: [...editForm.disabledDates],
+        disabledRanges: [...editForm.disabledRanges],
+      });
+      dispatch(resetEditForm());
     }
-  }, [setDisRanges, editDisDates]);
+  }, [editForm, dispatch, setPost]);
 
   return (
     <>
@@ -93,10 +116,10 @@ function DatePicker({ post, setPost, editDisDates }) {
       />
       <button onClick={onDisableButton}>Disable these dates</button>
 
-      {disRanges.length > 0 &&
-        disRanges.map((range, index) => (
+      {post.disabledRanges.length > 0 &&
+        post.disabledRanges.map((range, index) => (
           <Box key={range.startDate} className="flex date-range">
-            <Box className="flex date">
+            <Box key={range.endDate} className="flex date">
               <p>
                 {dayjs(range.startDate).format(`MMM D, YYYY`).toString()} -{" "}
                 {dayjs(range.endDate).format(`MMM D, YYYY`).toString()}

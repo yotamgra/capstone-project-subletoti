@@ -28,7 +28,7 @@ function NewPostForm() {
   const { editForm } = useSelector((state) => state.posts);
 
   const onSubmit = () => {
-    console.log("postSubmit", post);
+    console.log("post submit",post)
     dispatch(createPost({ post }));
     setPost(intialValue);
     setIsPostFormExpended(false);
@@ -43,10 +43,11 @@ function NewPostForm() {
 
   useEffect(() => {
     if (editForm) {
+      console.log("editForm in Form",editForm)
       setPost(editForm);
       setIsPostFormExpended(true);
     }
-  }, [setPost, editForm]);
+  }, [setPost, editForm, dispatch]);
 
   return (
     <>
@@ -124,7 +125,12 @@ function NewPostForm() {
               </button>
             </div>
             <label htmlFor="text">Disabeled Dates:</label>
-            <DatePicker key={post._id} post={post} setPost={setPost} editDisDates={editForm?.disabledDates} />
+            <DatePicker
+              key={post._id}
+              post={post}
+              setPost={setPost}
+              editForm={editForm}
+            />
             <div className="form-group">
               {editForm ? (
                 <button onClick={onUpdatePost}>Save</button>

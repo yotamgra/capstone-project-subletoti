@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import dayjs from "dayjs";
 import postService from "./postService.js";
 
 const initialState = {
@@ -36,7 +37,7 @@ export const getPostById = createAsyncThunk(
   async (postId, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      return await postService.getPostById(postId,token);
+      return await postService.getPostById(postId, token);
     } catch (error) {
       const message =
         (error.response &&
@@ -55,7 +56,7 @@ export const createPost = createAsyncThunk(
   async (postData, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      console.log("postData Slice",postData)
+      console.log("postData Slice", postData);
       return await postService.createPost(postData, token);
     } catch (error) {
       const message =
@@ -114,7 +115,17 @@ export const postSlice = createSlice({
   reducers: {
     reset: (state) => initialState,
     setEditForm: (state, action) => {
-      state.editForm = action.payload;
+      let { disabledDates, disabledRanges } = action.payload;
+      disabledDates = disabledDates.map((date) => dayjs(date).$d);
+      disabledRanges = disabledRanges.map((range) => ({
+        startDate: dayjs(range.startDate).$d,
+        endDate: dayjs(range.endDate).$d,
+      }));
+      state.editForm = {
+        ...action.payload,
+        disabledDates: [...disabledDates],
+        disabledRanges: [...disabledRanges],
+      };
     },
     resetEditForm: (state) => {
       state.editForm = null;

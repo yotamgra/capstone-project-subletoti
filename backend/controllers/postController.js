@@ -13,8 +13,16 @@ const getPosts = asyncHandler(async (req, res) => {
 //@route   POST /posts
 //@access  Private
 const setPost = asyncHandler(async (req, res) => {
-  const { header, price, location, description, imagesGallery, disabledDates } =
-    req.body.post;
+  const {
+    header,
+    price,
+    location,
+    description,
+    imagesGallery,
+    disabledDates,
+    disabledRanges,
+  } = req.body.post;
+  console.log("disabledRanges controller",disabledRanges)
   if (!header || !price || !location) {
     res.status(400);
     throw new Error("Post header, price and location are required");
@@ -27,6 +35,7 @@ const setPost = asyncHandler(async (req, res) => {
     description: description || "",
     imagesGallery: imagesGallery || [],
     disabledDates,
+    disabledRanges,
   });
   res.status(200).json(post);
 });
