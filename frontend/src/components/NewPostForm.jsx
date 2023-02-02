@@ -15,8 +15,8 @@ function NewPostForm() {
     description: "",
     location: "",
     imagesGallery: [],
-    availableFrom: "",
-    availableUntil: "",
+    disabledDates: [],
+    disabledRanges: [],
   };
   const [post, setPost] = useState(intialValue);
   const [img, setImg] = useState("");
@@ -28,7 +28,7 @@ function NewPostForm() {
   const { editForm } = useSelector((state) => state.posts);
 
   const onSubmit = () => {
-    console.log("postSubmit",post)
+    console.log("postSubmit", post);
     dispatch(createPost({ post }));
     setPost(intialValue);
     setIsPostFormExpended(false);
@@ -124,7 +124,7 @@ function NewPostForm() {
               </button>
             </div>
             <label htmlFor="text">Disabeled Dates:</label>
-            <DatePicker post={post} setPost={setPost} />
+            <DatePicker key={post._id} post={post} setPost={setPost} editDisDates={editForm?.disabledDates} />
             <div className="form-group">
               {editForm ? (
                 <button onClick={onUpdatePost}>Save</button>

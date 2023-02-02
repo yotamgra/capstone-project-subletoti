@@ -25,12 +25,10 @@ const postSchema = mongoose.Schema(
     imagesGallery: {
       type: [String],
     },
-    availableFrom: {
-      type: String,
+    disabledDates: {
+      type: [String],
     },
-    availableUntil: {
-      type: String,
-    },
+ 
   },
   { timestamps: true }
 );

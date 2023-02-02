@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import { Box, Button } from "@mui/material";
 
-function DatePicker({ post, setPost }) {
+function DatePicker({ post, setPost, editDisDates }) {
   const [selectionRange, setSelectionRange] = useState({
     startDate: new Date(),
     endDate: new Date(),
@@ -16,12 +16,9 @@ function DatePicker({ post, setPost }) {
   const [datesDis, setDatesDis] = useState([]);
 
   const today = new Date();
-  const handleSelect = (ranges) => {
-    const startDate = ranges.selection.startDate;
-    const endDate = ranges.selection.endDate;
-    setSelectionRange(ranges.selection);
 
-    setPost({ ...post, availableFrom: startDate, availableUntil: endDate });
+  const handleSelect = (ranges) => {
+    setSelectionRange(ranges.selection);
   };
 
   const disabledDay = (d) => {
@@ -43,8 +40,8 @@ function DatePicker({ post, setPost }) {
     const { startDate, endDate } = selectionRange;
 
     setDatesDis([...datesDis, ...getArrayDates(startDate, endDate)]);
+    setPost({ ...post, disabledDates: [...datesDis] });
     setDisRanges([...disRanges, { startDate, endDate }]);
-    // setDisRanges([])
   };
 
   const getArrayDates = (startDate, stopDate) => {
@@ -75,7 +72,14 @@ function DatePicker({ post, setPost }) {
     setDatesDis([...datesDis]);
     disRanges.splice(index, 1);
     setDisRanges([...disRanges]);
+    setPost({ ...post, disabledDates: [...datesDis] });
   };
+  useEffect(() => {
+    if (editDisDates?.length > 0) {
+      console.log("editDisDates", editDisDates);
+      setDatesDis([...editDisDates]);
+    }
+  }, [setDisRanges, editDisDates]);
 
   return (
     <>

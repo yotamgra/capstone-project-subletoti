@@ -13,15 +13,8 @@ const getPosts = asyncHandler(async (req, res) => {
 //@route   POST /posts
 //@access  Private
 const setPost = asyncHandler(async (req, res) => {
-  const {
-    header,
-    price,
-    location,
-    description,
-    imagesGallery,
-    availableFrom,
-    availableUntil,
-  } = req.body.post;
+  const { header, price, location, description, imagesGallery, disabledDates } =
+    req.body.post;
   if (!header || !price || !location) {
     res.status(400);
     throw new Error("Post header, price and location are required");
@@ -33,8 +26,7 @@ const setPost = asyncHandler(async (req, res) => {
     location,
     description: description || "",
     imagesGallery: imagesGallery || [],
-    availableFrom,
-    availableUntil,
+    disabledDates,
   });
   res.status(200).json(post);
 });
@@ -69,8 +61,6 @@ const getPostById = asyncHandler(async (req, res) => {
 //@route   PUT /posts/:id
 //@access  Private
 const updatePost = asyncHandler(async (req, res) => {
-  console.log("body", req.body);
-  console.log("req.params.id", req.params.id);
   const post = await Post.findById(req.params.id);
   if (!post) {
     res.status(400);
