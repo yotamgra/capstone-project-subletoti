@@ -1,13 +1,14 @@
+import "./style.scss";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRangePicker } from "react-date-range";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { resetEditForm } from "../features/posts/postSlice";
+import { resetEditForm } from "../../features/posts/postSlice";
 import dayjs from "dayjs";
 import { Box, Button } from "@mui/material";
 
-function DatePicker({ post, setPost, editForm }) {
+function OwnerDatePicker({ post, setPost, editForm }) {
   const [selectionRange, setSelectionRange] = useState({
     startDate: new Date(),
     endDate: new Date(),
@@ -98,7 +99,7 @@ function DatePicker({ post, setPost, editForm }) {
   }, [editForm, dispatch, setPost]);
 
   return (
-    <>
+    <div className="owner-date-picker-comp">
       <DateRangePicker
         ranges={[selectionRange]}
         onChange={handleSelect}
@@ -127,8 +128,8 @@ function DatePicker({ post, setPost, editForm }) {
             </Button>
           </Box>
         ))}
-    </>
+    </div>
   );
 }
 
-export default DatePicker;
+export default OwnerDatePicker;

@@ -1,3 +1,4 @@
+import "./style.scss";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRangePicker } from "react-date-range";
@@ -10,7 +11,7 @@ function CheckInDatePicker({ post, setPost }) {
     const endDate = ranges.selection.endDate;
     setSelectionRange(ranges.selection);
 
-    setPost({ ...post, availableFrom: startDate, availableUntil: endDate });
+    
   };
   const [selectionRange, setSelectionRange] = useState({
     startDate: new Date(),
@@ -18,6 +19,7 @@ function CheckInDatePicker({ post, setPost }) {
     key: "selection",
   });
   return (
+    <div className="check-in-date-picker-comp">
     <DateRangePicker
       ranges={[selectionRange]}
       onChange={handleSelect}
@@ -29,6 +31,7 @@ function CheckInDatePicker({ post, setPost }) {
       // }}
       minDate={today}
     />
+    </div>
   );
 }
 

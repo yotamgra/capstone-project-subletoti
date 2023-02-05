@@ -1,6 +1,8 @@
+import "./style.scss";
+
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { logout, reset } from "../features/auth/authSlice.js";
+import { logout, reset } from "../../features/auth/authSlice.js";
 
 import { useState, useRef, useEffect } from "react";
 import Button from "@mui/material/Button";
@@ -10,11 +12,11 @@ import Paper from "@mui/material/Paper";
 import Popper from "@mui/material/Popper";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
-import Divider from '@mui/material/Divider';
+import Divider from "@mui/material/Divider";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import MenuIcon from "@mui/icons-material/Menu";
 import LoginIcon from "@mui/icons-material/Login";
-import LogoutIcon from '@mui/icons-material/Logout';
+import LogoutIcon from "@mui/icons-material/Logout";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 
 export default function AuthMenu() {
@@ -69,7 +71,7 @@ export default function AuthMenu() {
   };
 
   return (
-    <div>
+    <div className="auth-menu-comp">
       <Button
         ref={anchorRef}
         id="composition-button"
@@ -115,7 +117,7 @@ export default function AuthMenu() {
                       }}
                     >
                       Logout
-                      <LogoutIcon style={iconMunueItemStyle}/>
+                      <LogoutIcon style={iconMunueItemStyle} />
                     </MenuItem>
                   </MenuList>
                 ) : (
@@ -131,7 +133,7 @@ export default function AuthMenu() {
                         <PersonAddIcon style={iconMunueItemStyle} />
                       </Link>
                     </MenuItem>
-                    <Divider/>
+                    <Divider />
                     <MenuItem className="center" onClick={handleClose}>
                       <Link className="flex" to="/login">
                         Login

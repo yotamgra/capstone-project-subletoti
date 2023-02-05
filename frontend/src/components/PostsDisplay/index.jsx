@@ -1,7 +1,8 @@
+import "./style.scss";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllPosts } from "../features/posts/postSlice";
+import { getAllPosts } from "../../features/posts/postSlice";
 import { useEffect } from "react";
-import Post from "./Post";
+import PostPreview from "../PostPreview";
 
 
 function PostsDisplay() {
@@ -24,9 +25,9 @@ function PostsDisplay() {
   }
   return (
     <>
-      <div className="flex posts-container">
+      <div className="posts-display-comp">
         {posts.map((post) => (
-          <Post post={post} key={post._id}  />
+          <PostPreview post={post} key={post._id}  />
         ))}
       </div>
     </>

@@ -1,0 +1,53 @@
+.post-preview-comp {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 300px;
+
+  .img {
+    width: 300px;
+    height: 250px;
+    border-radius: 8px;
+    object-fit: cover;
+    margin: 10px;
+    cursor: pointer;
+  }
+  .post-info {
+    width: 100%;
+  }
+  .post-header {
+    margin: 0;
+  }
+  .flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .desc {
+    letter-spacing: 2px;
+    margin: 0;
+  }
+
+  .price-container {
+    width: 100%;
+  }
+  .bold {
+    font-weight: bold;
+  }
+
+  .gap {
+    gap: 3px;
+  }
+  .btn {
+    background: transparent;
+    cursor: pointer;
+    margin: 0;
+    border: 1px solid #dddddd;
+    border-radius: 20px;
+    color: rgba(113, 113, 113, 255);
+  }
+  .btn:hover {
+    box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+  }
+}

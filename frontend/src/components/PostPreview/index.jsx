@@ -1,15 +1,16 @@
+import "./style.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { deletePost, setEditForm } from "../features/posts/postSlice.js";
+import { deletePost, setEditForm } from "../../features/posts/postSlice.js";
 import { useNavigate } from "react-router-dom";
 
 import StarRateIcon from "@mui/icons-material/StarRate";
 
-function Post({ post }) {
+function PostPreview({ post }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   return (
-    <div className="post-container">
+    <div className="post-preview-comp">
       <img
         className="img"
         onClick={() => navigate(`/post/${post._id}`)}
@@ -97,4 +98,4 @@ function Post({ post }) {
   );
 }
 
-export default Post;
+export default PostPreview;

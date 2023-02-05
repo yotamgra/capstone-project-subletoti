@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import PostsDisplay from "../components/PostsDisplay";
-import NewPostForm from "../components/NewPostForm";
+import PostsDisplay from "../../components/PostsDisplay";
+import NewPostForm from "../../components/NewPostForm";
 
 function Dashboard() {
   const navigate = useNavigate();

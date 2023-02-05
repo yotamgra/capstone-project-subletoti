@@ -4,13 +4,7 @@ body {
   font-family: "Manrope", sans-serif;
 }
 
-.rdrDefinedRangesWrapper {
-  display: none;
-}
-.rdrMonth {
-  /* display: none; */
-}
-
+/* 
 .btn {
   background: transparent;
   cursor: pointer;
@@ -46,7 +40,7 @@ header {
  
 }
 .date-range{
-  /* justify-content:center; */
+  
   gap:30px;
   background-color: rgb(239, 242, 247);
   width: 50%;
@@ -67,7 +61,7 @@ header {
   flex-direction: column;
 
   width: 300px;
-  /* border: 2px solid black; */
+  
 }
 .posts-container {
   flex-wrap: wrap;
@@ -94,4 +88,4 @@ header {
 .desc {
   letter-spacing: 2px;
   margin: 0;
-}
+} */

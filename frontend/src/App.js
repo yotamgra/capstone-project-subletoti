@@ -16,7 +16,6 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/post/:postId" element={<PostPage />} />
-
           </Routes>
         </div>
       </Router>

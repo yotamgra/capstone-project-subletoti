@@ -1,9 +1,10 @@
 import { useLocation } from "react-router-dom";
-import ImgesGallery from "../components/ImagesGallery";
+import ImgesGallery from "../../components/ImagesGallery";
 import { useSelector, useDispatch } from "react-redux";
-import { getPostById } from "../features/posts/postSlice";
+import { getPostById } from "../../features/posts/postSlice";
 import { useEffect } from "react";
-import DatePickerAntd from "../components/DatePickerAntd";
+import CheckInDatePicker from "../../components/CheckInDatePicker";
+import "./style.scss";
 
 function PostPage() {
   const dispatch = useDispatch();
@@ -26,17 +27,17 @@ function PostPage() {
   }
   console.log("single", singlePost);
   return (
-    <>
+    <div className="post-page-comp">
       {singlePost ? (
         <>
           <h1>{singlePost.header}</h1>
           <ImgesGallery gallery={singlePost.imagesGallery} />
-          <DatePickerAntd />
+          <CheckInDatePicker />
         </>
       ) : (
         <></>
       )}
-    </>
+    </div>
   );
 }
 

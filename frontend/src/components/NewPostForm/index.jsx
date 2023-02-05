@@ -4,8 +4,8 @@ import {
   createPost,
   updatePost,
   resetEditForm,
-} from "../features/posts/postSlice";
-import DatePicker from "./DatePicker";
+} from "../../features/posts/postSlice";
+import OwnerDatePicker from "../OwnerDatePicker";
 
 function NewPostForm() {
   const intialValue = {
@@ -48,7 +48,7 @@ function NewPostForm() {
   }, [setPost, editForm, dispatch]);
 
   return (
-    <>
+    <div className="new-post-form-comp">
       {isPostFormExpended ? (
         <>
           <button
@@ -123,7 +123,7 @@ function NewPostForm() {
               </button>
             </div>
             <label htmlFor="text">Disabeled Dates:</label>
-            <DatePicker
+            <OwnerDatePicker
               key={post._id}
               post={post}
               setPost={setPost}
@@ -145,7 +145,7 @@ function NewPostForm() {
           Add new post
         </button>
       )}
-    </>
+    </div>
   );
 }
 

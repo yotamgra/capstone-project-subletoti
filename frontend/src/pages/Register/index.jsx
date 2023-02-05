@@ -1,15 +1,17 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { reset, login } from "../features/auth/authSlice.js";
+import { register, reset } from "../../features/auth/authSlice";
 
-function Login() {
+function Register() {
   const [formData, setFormData] = useState({
+    name: "",
     email: "",
     password: "",
+    password2: "",
   });
 
-  const { email, password } = formData;
+  const { name, email, password, password2 } = formData;
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -18,9 +20,10 @@ function Login() {
     (state) => state.auth
   );
 
+  
   useEffect(() => {
     if (isError) {
-      alert(message);
+     alert(message);
     }
     if (isSuccess || user) {
       navigate("/");
@@ -37,18 +40,42 @@ function Login() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    const userData = {
-      email,
-      password,
-    };
-    dispatch(login(userData));
+
+    if (password !== password2) {
+      alert("Passwords do not match");
+    } else {
+      const userData = {
+        name,
+        email,
+        password,
+      };
+      dispatch(register(userData));
+    }
   };
+
+  
+  if (isLoading) {
+    return <><h3>Loading...</h3></>;
+  }
   return (
     <>
       <section>
-        <h1>Login</h1>
+        <h1>
+          Register
+          <p>Please create an account</p>
+        </h1>
       </section>
       <form onSubmit={onSubmit}>
+        <div>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={name}
+            placeholder="Enter your name"
+            onChange={onChange}
+          />
+        </div>
         <div>
           <input
             type="email"
@@ -70,6 +97,16 @@ function Login() {
           />
         </div>
         <div>
+          <input
+            type="password"
+            id="password2"
+            name="password2"
+            value={password2}
+            placeholder="Confirm password"
+            onChange={onChange}
+          />
+        </div>
+        <div>
           <button type="submit">Submit</button>
         </div>
       </form>
@@ -77,4 +114,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;
