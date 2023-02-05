@@ -52,7 +52,6 @@ function DatePicker({ post, setPost, editForm }) {
   };
 
   const getArrayDates = (startDate, stopDate) => {
-    console.log("getArrayDates")
     const dateArray = [];
     let currentDate = dayjs(startDate);
     while (currentDate <= stopDate) {
@@ -62,18 +61,13 @@ function DatePicker({ post, setPost, editForm }) {
     return dateArray;
   };
   const onUndo = (range, index) => {
-    console.log("range", range);
-    console.log("index", index);
     const { disabledDates } = post;
     const { startDate, endDate } = range;
-    console.log("startDate",startDate)
-    console.log("endDate",endDate)
-    console.log("disabledDates", disabledDates);
+
     const arrayToRemove = getArrayDates(startDate, endDate);
-    console.log("arrayToRemove",arrayToRemove)
+
     arrayToRemove.map((dateToRemove) =>
       disabledDates.find((disDate, index) => {
-        console.log( dayjs(disDate).format(`D`))
         if (
           dayjs(disDate).format(`MMM D, YYYY`) ===
           dayjs(dateToRemove).format(`MMM D, YYYY`)
@@ -94,7 +88,6 @@ function DatePicker({ post, setPost, editForm }) {
   };
   useEffect(() => {
     if (editForm) {
-      console.log("editForm", editForm);
       setPost({
         ...editForm,
         disabledDates: [...editForm.disabledDates],

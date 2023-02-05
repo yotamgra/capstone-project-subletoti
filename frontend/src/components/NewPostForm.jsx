@@ -28,7 +28,6 @@ function NewPostForm() {
   const { editForm } = useSelector((state) => state.posts);
 
   const onSubmit = () => {
-    console.log("post submit",post)
     dispatch(createPost({ post }));
     setPost(intialValue);
     setIsPostFormExpended(false);
@@ -43,7 +42,6 @@ function NewPostForm() {
 
   useEffect(() => {
     if (editForm) {
-      console.log("editForm in Form",editForm)
       setPost(editForm);
       setIsPostFormExpended(true);
     }

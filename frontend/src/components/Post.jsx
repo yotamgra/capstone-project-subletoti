@@ -73,13 +73,13 @@ function Post({ post }) {
         </p>
         {user._id === post.user ? (
           <>
-            {/* <button
+            <button
             onClick={() => {
               dispatch(deletePost(post._id));
             }}
           >
             Delete
-          </button> */}
+          </button>
             <button
               className="btn round"
               onClick={() => {

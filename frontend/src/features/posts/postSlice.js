@@ -56,7 +56,7 @@ export const createPost = createAsyncThunk(
   async (postData, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      console.log("postData Slice", postData);
+
       return await postService.createPost(postData, token);
     } catch (error) {
       const message =
