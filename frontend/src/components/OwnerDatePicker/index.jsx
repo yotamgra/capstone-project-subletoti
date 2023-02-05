@@ -20,7 +20,25 @@ function OwnerDatePicker({ post, setPost, editForm }) {
   const today = new Date();
 
   const handleSelect = (ranges) => {
-    setSelectionRange(ranges.selection);
+    const { startDate, endDate } = ranges.selection;
+    const { disabledDates } = post;
+    let isValid = true;
+    if (disabledDates.length) {
+      disabledDates.find((disDate) => {
+        if (
+          dayjs(startDate) < dayjs(disDate) &&
+          dayjs(endDate) > dayjs(disDate)
+        ) {
+          alert("please select another range");
+          isValid = false;
+          return true;
+        }
+        return false;
+      });
+    }
+    if (isValid) {
+      setSelectionRange(ranges.selection);
+    }
   };
 
   const disabledDay = (d) => {

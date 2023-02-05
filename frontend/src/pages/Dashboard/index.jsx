@@ -1,13 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import PostsDisplay from "../../components/PostsDisplay";
 import NewPostForm from "../../components/NewPostForm";
 
 function Dashboard() {
   const navigate = useNavigate();
-
-  const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.auth);
 

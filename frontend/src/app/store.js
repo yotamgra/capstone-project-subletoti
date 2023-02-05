@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "../features/auth/authSlice.js";
 import postReducer from "../features/posts/postSlice.js";
-import { getDefaultMiddleware } from "@reduxjs/toolkit";
+
 
 export const store = configureStore({
   reducer: {
