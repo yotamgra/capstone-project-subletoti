@@ -5,6 +5,7 @@ import { getPostById } from "../../features/posts/postSlice";
 import { useEffect } from "react";
 import CheckInDatePicker from "../../components/CheckInDatePicker";
 import "./style.scss";
+import CheckIn from "../../components/CheckIn";
 
 function PostPage() {
   const dispatch = useDispatch();
@@ -32,7 +33,8 @@ function PostPage() {
         <>
           <h1>{singlePost.header}</h1>
           <ImgesGallery gallery={singlePost.imagesGallery} />
-          <CheckInDatePicker />
+          <CheckIn post={singlePost} />
+          
         </>
       ) : (
         <></>
