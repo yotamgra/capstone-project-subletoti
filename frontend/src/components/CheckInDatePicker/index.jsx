@@ -74,6 +74,7 @@ function CheckInDatePicker({
         direction="horizontal"
         disabledDay={disabledDay}
         minDate={today}
+        rangeColors={["#e51d53"]}
       />
     </div>
   );

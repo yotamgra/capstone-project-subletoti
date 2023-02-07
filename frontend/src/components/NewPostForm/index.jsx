@@ -26,6 +26,7 @@ function NewPostForm() {
   const dispatch = useDispatch();
 
   const { editForm } = useSelector((state) => state.posts);
+  const [isEdit, setIsEdit] = useState(editForm ? true : false);
 
   const onSubmit = () => {
     dispatch(createPost({ post }));
@@ -43,9 +44,10 @@ function NewPostForm() {
   useEffect(() => {
     if (editForm) {
       setPost(editForm);
+      setIsEdit(true);
       setIsPostFormExpended(true);
     }
-  }, [setPost, editForm, dispatch]);
+  }, [setPost, editForm, setIsEdit, dispatch]);
 
   return (
     <div className="new-post-form-comp">
@@ -56,6 +58,7 @@ function NewPostForm() {
               dispatch(resetEditForm());
               setPost(intialValue);
               setIsPostFormExpended(false);
+              setIsEdit(false)
             }}
           >
             close form
@@ -130,7 +133,7 @@ function NewPostForm() {
               editForm={editForm}
             />
             <div className="form-group">
-              {editForm ? (
+              {isEdit ? (
                 <button onClick={onUpdatePost}>Save</button>
               ) : (
                 <button type="submit" onClick={onSubmit}>
