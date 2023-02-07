@@ -1,0 +1,19 @@
+.check-in-date-picker-comp {
+  .rdrDefinedRangesWrapper {
+    display: none;
+  }
+  .rdrCalendarWrapper {
+    border: 1px solid rgb(221, 221, 221);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
+  }
+  .rdrDateDisplayWrapper {
+    background-color: rgb(240, 167, 186);
+    // opacity: 0.1;
+  }
+
+  .rdrDayToday .rdrDayNumber span:after {
+    background-color: rgb(229, 29, 83, 255);
+  }
+}

@@ -1,0 +1,21 @@
+.owner-date-picker-comp {
+    .rdrDefinedRangesWrapper {
+        display: none;
+      }
+      .flex {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .date{
+        color: #849095;
+      
+       
+      }
+      .date-range{
+        /* justify-content:center; */
+        gap:30px;
+        background-color: rgb(239, 242, 247);
+        width: 50%;
+      }
+}
