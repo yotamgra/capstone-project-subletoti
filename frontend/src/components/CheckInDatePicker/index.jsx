@@ -2,7 +2,6 @@ import "./style.scss";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRangePicker } from "react-date-range";
-import { useState } from "react";
 import dayjs from "dayjs";
 
 function CheckInDatePicker({
@@ -17,15 +16,9 @@ function CheckInDatePicker({
   const handleSelect = (ranges) => {
     const { startDate, endDate } = ranges.selection;
     const { disabledDates } = post;
-    console.log(
-      "dayjs(startDate).format(`MMM D, YYYY`)",
-      dayjs(startDate).format(`MMM D, YYYY`)
-    );
-    console.log(
-      "dayjs(endDate).format(`MMM D, YYYY`)",
-      dayjs(endDate).format(`MMM D, YYYY`)
-    );
+
     let isValid = true;
+    //checks if the selected range includes disabled dates inside
     if (disabledDates.length) {
       disabledDates.find((disDate) => {
         if (
@@ -41,12 +34,15 @@ function CheckInDatePicker({
     }
     if (isValid) {
       setSelectionRange(ranges.selection);
+      console.log("truevalid");
     }
     if (
+      isValid &&
       dayjs(endDate).format(`MMM D, YYYY`) >
-      dayjs(startDate).format(`MMM D, YYYY`)
+        dayjs(startDate).format(`MMM D, YYYY`)
     ) {
       setIsExpended(false);
+
       console.log("true");
     }
   };
