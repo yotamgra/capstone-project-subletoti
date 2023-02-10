@@ -3,7 +3,6 @@ import ImgesGallery from "../../components/ImagesGallery";
 import { useSelector, useDispatch } from "react-redux";
 import { getPostById } from "../../features/posts/postSlice";
 import { useEffect } from "react";
-import CheckInDatePicker from "../../components/CheckInDatePicker";
 import "./style.scss";
 import CheckIn from "../../components/CheckIn";
 
@@ -34,7 +33,6 @@ function PostPage() {
           <h1>{singlePost.header}</h1>
           <ImgesGallery gallery={singlePost.imagesGallery} />
           <CheckIn post={singlePost} />
-          
         </>
       ) : (
         <></>

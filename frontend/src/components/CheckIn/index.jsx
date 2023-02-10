@@ -9,8 +9,23 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { useState } from "react";
 import dayjs from "dayjs";
 import { Button } from "@mui/material";
+import { useSelector } from "react-redux";
 
 function CheckIn({ post }) {
+  const { user } = useSelector((state) => state.auth);
+  const intialState = {
+    ownerUser: post.user,
+    guetUser: user._id,
+    startDate: new Date(),
+    endDate: new Date(),
+    numberOfNights: 0,
+    totalPrice: 0,
+    guets: { adults: 1, children: 0, infants: 0, pets: 0 },
+  };
+
+  const [reservation, setReservation] = useState(intialState);
+
+  //CheckInDatePicker vairables
   const [selectionRange, setSelectionRange] = useState({
     startDate: new Date(),
     endDate: new Date(),
@@ -20,6 +35,19 @@ function CheckIn({ post }) {
   const rate = 5;
   const [isDatesExpended, setIsDatesExpended] = useState(false);
   const [isGuestsExpended, setIsGuestsExpended] = useState(false);
+
+  const onReserveClick = () => {
+    const {startDate,endDate} =selectionRange
+    let {numberOfNights} = reservation
+    numberOfNights = dayjs(endDate).format(`D`) - dayjs(startDate).format(`D`)
+  
+    setReservation({
+      ...reservation,
+      startDate,
+      endDate,
+      numberOfNights,
+    });
+  };
 
   return (
     <div className="check-in-comp">
@@ -144,7 +172,9 @@ function CheckIn({ post }) {
           </Box>
         )}
         <div className="reserve-button-container">
-          <button className="reserve-button">Reserve</button>
+          <button onClick={onReserveClick} className="reserve-button">
+            Reserve
+          </button>
         </div>
         <p className="wont-charge-para">You won't be charged yet</p>
         <div className="price-details-container">

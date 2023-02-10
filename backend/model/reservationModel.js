@@ -2,34 +2,37 @@ import mongoose from "mongoose";
 
 const reservationSchema = mongoose.Schema(
   {
-    user: {
+    ownerUser: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: "User",
     },
-    header: {
+    guetUser: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
+    },
+    startDate: {
       type: String,
-      required: [true, "Please add header"],
+      required: true,
     },
-    price: {
+    endDate: {
       type: String,
-      required: [true, "Please add price"],
+      required: true,
     },
-    location: {
-      type: String,
-      required: [true, "Please add location"],
+    numberOfNights: {
+      type: Number,
     },
-    description: {
-      type: String,
+    totalPrice: {
+      type: Number,
     },
-    imagesGallery: {
-      type: [String],
-    },
-    disabledDates: {
-      type: [String],
-    },
-    disabledRanges: {
-      type: [{ startDate: { type: String }, endDate: { type: String } }],
+    guets: {
+      type: {
+        adults: { type: Number },
+        children: { type: Number },
+        infants: { type: Number },
+        pets: { type: Number },
+      },
     },
   },
   { timestamps: true }

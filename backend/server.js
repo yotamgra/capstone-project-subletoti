@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/posts',postRoutes)
 app.use('/users',userRoutes)
-// app.use('/reservations',reservationRoutes)
+app.use('/reservations',reservationRoutes)
 
 app.use(errorHandler)
 

@@ -10,7 +10,7 @@ import { protect } from "../middleweare/authMiddleweare.js";
 
 const router = express.Router();
 
-router.route("/").get(protect, getReservations).reservation(protect, setReservation);
+router.route("/").get(protect, getReservations).post(protect, setReservation);
 
 router
   .route("/:id")
