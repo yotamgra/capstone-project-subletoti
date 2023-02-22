@@ -12,7 +12,7 @@ const postSchema = mongoose.Schema(
       required: [true, "Please add header"],
     },
     price: {
-      type: String,
+      type: Number,
       required: [true, "Please add price"],
     },
     location: {

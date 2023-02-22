@@ -6,6 +6,8 @@ import dayjs from "dayjs";
 
 function CheckInDatePicker({
   post,
+  reservation,
+  setReservation,
   isExpended,
   setIsExpended,
   selectionRange,
@@ -15,6 +17,7 @@ function CheckInDatePicker({
 
   const handleSelect = (ranges) => {
     const { startDate, endDate } = ranges.selection;
+    // setReservation({ ...reservation,});
     const { disabledDates } = post;
 
     let isValid = true;
@@ -34,6 +37,14 @@ function CheckInDatePicker({
     }
     if (isValid) {
       setSelectionRange(ranges.selection);
+      //Update number of nights
+      setReservation({
+        ...reservation,
+        numberOfNights:
+          dayjs(endDate).format("D") - dayjs(startDate).format("D"),
+        startDate,
+        endDate,
+      });
       console.log("truevalid");
     }
     if (

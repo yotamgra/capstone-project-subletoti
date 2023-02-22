@@ -70,7 +70,7 @@ function PostPreview({ post }) {
       </div>
       <div className="flex price-container">
         <p className="flex gap">
-          <span className="bold">{post.price}</span> night
+          <span className="bold">{post.price}$</span> night
         </p>
         {user._id === post.user ? (
           <>

@@ -32,21 +32,36 @@ function CheckIn({ post }) {
     key: "selection",
   });
 
+  const { startDate, endDate } = selectionRange;
+  let { numberOfNights } = reservation;
+  const { guets } = reservation;
   const rate = 5;
   const [isDatesExpended, setIsDatesExpended] = useState(false);
   const [isGuestsExpended, setIsGuestsExpended] = useState(false);
 
+  const decrementGuest = (key) => {
+    if (guets[key] > 1 && key === "adults") {
+      guets[key]--;
+    } else if (guets[key] > 0 && key !== "adults") {
+      guets[key]--;
+    }
+    setReservation({ ...reservation, guets: { ...guets } });
+  };
+  const incrementGuest = (key) => {
+    guets[key]++;
+    setReservation({ ...reservation, guets: { ...guets } });
+  };
+
   const onReserveClick = () => {
-    const {startDate,endDate} =selectionRange
-    let {numberOfNights} = reservation
-    numberOfNights = dayjs(endDate).format(`D`) - dayjs(startDate).format(`D`)
-  
-    setReservation({
-      ...reservation,
-      startDate,
-      endDate,
-      numberOfNights,
-    });
+    // numberOfNights = dayjs(endDate).format(`D`) - dayjs(startDate).format(`D`);
+    console.log(reservation);
+
+    // setReservation({
+    //   ...reservation,
+    //   startDate,
+    //   endDate,
+    //   numberOfNights,
+    // });
   };
 
   return (
@@ -66,6 +81,8 @@ function CheckIn({ post }) {
         {isDatesExpended ? (
           <CheckInDatePicker
             post={post}
+            reservation={reservation}
+            setReservation={setReservation}
             isExpended={isDatesExpended}
             setIsExpended={setIsDatesExpended}
             selectionRange={selectionRange}
@@ -79,15 +96,11 @@ function CheckIn({ post }) {
             >
               <div className="check-in-mini-container border">
                 <span className="mini-header">CHECK-IN</span>
-                <span>
-                  {dayjs(selectionRange.startDate).format(`MMM D, YYYY`)}
-                </span>
+                <span>{dayjs(startDate).format(`MMM D, YYYY`)}</span>
               </div>
               <div className="check-in-mini-container">
                 <span className="mini-header">CHECKOUT</span>
-                <span>
-                  {dayjs(selectionRange.endDate).format(`MMM D, YYYY`)}
-                </span>
+                <span>{dayjs(endDate).format(`MMM D, YYYY`)}</span>
               </div>
             </div>
             <div>
@@ -100,7 +113,11 @@ function CheckIn({ post }) {
               >
                 <div className="guests-mini-container">
                   <span className="mini-header">GUESTS</span>
-                  <span>1 guest </span>
+                  {guets.adults + guets.children === 1 ? (
+                    <span>1 guest {}</span>
+                  ) : (
+                    <span>{guets.adults + guets.children} guests </span>
+                  )}
                 </div>
                 {!isGuestsExpended ? (
                   <ExpandMoreIcon
@@ -120,9 +137,17 @@ function CheckIn({ post }) {
                       <span>Age 13+ </span>
                     </div>
                     <div className="guests-buttons-container">
-                      <RemoveCircleOutlineIcon className="guests-button" />
-                      <span className="guests-buttons-value">1</span>
-                      <AddCircleOutlineIcon className="guests-button" />
+                      <RemoveCircleOutlineIcon
+                        onClick={() => decrementGuest("adults")}
+                        className="guests-button"
+                      />
+                      <span className="guests-buttons-value">
+                        {guets.adults}
+                      </span>
+                      <AddCircleOutlineIcon
+                        onClick={() => incrementGuest("adults")}
+                        className="guests-button"
+                      />
                     </div>
                   </div>
                   <div className="guests-menu-item">
@@ -131,9 +156,17 @@ function CheckIn({ post }) {
                       <span>Ages 2–12 </span>
                     </div>
                     <div className="guests-buttons-container">
-                      <RemoveCircleOutlineIcon className="guests-button" />
-                      <span className="guests-buttons-value">1</span>
-                      <AddCircleOutlineIcon className="guests-button" />
+                      <RemoveCircleOutlineIcon
+                        onClick={() => decrementGuest("children")}
+                        className="guests-button"
+                      />
+                      <span className="guests-buttons-value">
+                        {guets.children}
+                      </span>
+                      <AddCircleOutlineIcon
+                        onClick={() => incrementGuest("children")}
+                        className="guests-button"
+                      />
                     </div>
                   </div>
                   <div className="guests-menu-item">
@@ -142,9 +175,17 @@ function CheckIn({ post }) {
                       <span>Under 2 </span>
                     </div>
                     <div className="guests-buttons-container">
-                      <RemoveCircleOutlineIcon className="guests-button" />
-                      <span className="guests-buttons-value">1</span>
-                      <AddCircleOutlineIcon className="guests-button" />
+                      <RemoveCircleOutlineIcon
+                        onClick={() => decrementGuest("infants")}
+                        className="guests-button"
+                      />
+                      <span className="guests-buttons-value">
+                        {guets.infants}
+                      </span>
+                      <AddCircleOutlineIcon
+                        onClick={() => incrementGuest("infants")}
+                        className="guests-button"
+                      />
                     </div>
                   </div>
                   <div className="guests-menu-item">
@@ -152,9 +193,15 @@ function CheckIn({ post }) {
                       <span className="guests-rubric-header">Pets</span>
                     </div>
                     <div className="guests-buttons-container">
-                      <RemoveCircleOutlineIcon className="guests-button" />
-                      <span className="guests-buttons-value">1</span>
-                      <AddCircleOutlineIcon className="guests-button" />
+                      <RemoveCircleOutlineIcon
+                        onClick={() => decrementGuest("pets")}
+                        className="guests-button"
+                      />
+                      <span className="guests-buttons-value">{guets.pets}</span>
+                      <AddCircleOutlineIcon
+                        onClick={() => incrementGuest("pets")}
+                        className="guests-button"
+                      />
                     </div>
                   </div>
                   <div className="guests-close-button-container">
@@ -178,8 +225,10 @@ function CheckIn({ post }) {
         </div>
         <p className="wont-charge-para">You won't be charged yet</p>
         <div className="price-details-container">
-          <p className="price-details">100$ x 5 nights</p>
-          <p className="price-sum">500$</p>
+          <p className="price-details">
+            {post.price} x {numberOfNights} nights
+          </p>
+          <p className="price-sum">{post.price * numberOfNights}$</p>
         </div>
         <div className="price-details-container border-total">
           <p className="price-details">Cleaning fee</p>
@@ -187,7 +236,7 @@ function CheckIn({ post }) {
         </div>
         <div className="price-details-container bold-total">
           <p className="price-details">Total</p>
-          <p className="price-sum">595$</p>
+          <p className="price-sum">{post.price * numberOfNights + 95}$</p>
         </div>
       </Box>
     </div>
