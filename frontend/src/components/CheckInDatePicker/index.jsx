@@ -37,13 +37,15 @@ function CheckInDatePicker({
     }
     if (isValid) {
       setSelectionRange(ranges.selection);
-      //Update number of nights
+      //Update reservation state by picked dates
+      const numberOfNights =
+        dayjs(endDate).format("D") - dayjs(startDate).format("D");
       setReservation({
         ...reservation,
-        numberOfNights:
-          dayjs(endDate).format("D") - dayjs(startDate).format("D"),
         startDate,
         endDate,
+        numberOfNights,
+        totalPrice: numberOfNights*post.price + post.cleaningFee
       });
       console.log("truevalid");
     }

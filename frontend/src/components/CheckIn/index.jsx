@@ -53,15 +53,7 @@ function CheckIn({ post }) {
   };
 
   const onReserveClick = () => {
-    // numberOfNights = dayjs(endDate).format(`D`) - dayjs(startDate).format(`D`);
     console.log(reservation);
-
-    // setReservation({
-    //   ...reservation,
-    //   startDate,
-    //   endDate,
-    //   numberOfNights,
-    // });
   };
 
   return (
@@ -232,7 +224,7 @@ function CheckIn({ post }) {
         </div>
         <div className="price-details-container border-total">
           <p className="price-details">Cleaning fee</p>
-          <p className="price-sum">95$</p>
+          <p className="price-sum">{post.cleaningFee}$</p>
         </div>
         <div className="price-details-container bold-total">
           <p className="price-details">Total</p>
