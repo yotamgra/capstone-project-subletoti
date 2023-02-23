@@ -58,7 +58,7 @@ function NewPostForm() {
               dispatch(resetEditForm());
               setPost(intialValue);
               setIsPostFormExpended(false);
-              setIsEdit(false)
+              setIsEdit(false);
             }}
           >
             close form

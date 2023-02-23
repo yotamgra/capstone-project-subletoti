@@ -37,7 +37,7 @@ const setPost = asyncHandler(async (req, res) => {
     disabledDates,
     disabledRanges,
   });
-  res.status(200).json(post);
+  res.status(201).json(post);
 });
 
 //@desc    Get post by id
@@ -74,6 +74,7 @@ const updatePost = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Post not found");
   }
+  
 
   //Check for user
   if (!req.user) {
@@ -86,6 +87,7 @@ const updatePost = asyncHandler(async (req, res) => {
     res.status(401);
     throw new Error("User not authorized");
   }
+
 
   const updatedPost = await Post.findByIdAndUpdate(req.params.id, req.body, {
     new: true,

@@ -14,28 +14,27 @@ const getReservations = asyncHandler(async (req, res) => {
 //@access  Private
 const setReservation = asyncHandler(async (req, res) => {
   const {
-    header,
-    price,
-    location,
-    description,
-    imagesGallery,
-    disabledDates,
-    disabledRanges,
+    ownerUser,
+    guetUser,
+    startDate,
+    endDate,
+    numberOfNights,
+    totalPrice,
+    guets,
   } = req.body.reservation;
 
-  if (!header || !price || !location) {
-    res.status(400);
-    throw new Error("Reservation header, price and location are required");
-  }
+  // if (!header || !price || !location) {
+  //   res.status(400);
+  //   throw new Error("Reservation header, price and location are required");
+  // }
   const reservation = await Reservation.create({
-    user: req.user.id,
-    header,
-    price,
-    location,
-    description: description || "",
-    imagesGallery: imagesGallery || [],
-    disabledDates,
-    disabledRanges,
+    guetUser: req.user.id,
+    ownerUser,
+    startDate,
+    endDate,
+    numberOfNights,
+    totalPrice,
+    guets,
   });
   res.status(200).json(reservation);
 });
@@ -87,9 +86,13 @@ const updateReservation = asyncHandler(async (req, res) => {
     throw new Error("User not authorized");
   }
 
-  const updatedReservation = await Reservation.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-  });
+  const updatedReservation = await Reservation.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    {
+      new: true,
+    }
+  );
   res.status(200).json(updatedReservation);
 });
 
@@ -119,4 +122,10 @@ const deleteReservation = asyncHandler(async (req, res) => {
   res.status(200).json({ id: req.params.id });
 });
 
-export { getReservations, setReservation, getReservationById, updateReservation, deleteReservation };
+export {
+  getReservations,
+  setReservation,
+  getReservationById,
+  updateReservation,
+  deleteReservation,
+};

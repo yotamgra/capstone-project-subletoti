@@ -12,8 +12,12 @@ const postSchema = mongoose.Schema(
       required: [true, "Please add header"],
     },
     price: {
-      type: String,
+      type: Number,
       required: [true, "Please add price"],
+    },
+    cleaningFee: {
+      type: Number,
+      required: [true, "Please add cleaning fee"],
     },
     location: {
       type: String,

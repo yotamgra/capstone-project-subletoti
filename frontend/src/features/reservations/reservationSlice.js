@@ -1,24 +1,24 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import dayjs from "dayjs";
-import postService from "./postService.js";
+import reservationService from "./reservationService.js";
 
 const initialState = {
-  posts: [],
-  singlePost: null,
-  editForm: null,
+  resevations: [],
+  // singleReservation: null,
+  // editForm: null,
   isError: false,
   isSuccess: false,
   isLoading: false,
   message: "",
 };
 
-//Get all posts
-export const getAllPosts = createAsyncThunk(
-  "post/getAll",
-  async (_, thunkAPI) => {
+//Get reservation by Id
+export const getReservationById = createAsyncThunk(
+  "reservation/getReservationById",
+  async (reservationId, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      return await postService.getAllPosts(token);
+      return await reservationService.getReservationById(reservationId, token);
     } catch (error) {
       const message =
         (error.response &&
@@ -31,13 +31,14 @@ export const getAllPosts = createAsyncThunk(
     }
   }
 );
-//Get post by Id
-export const getPostById = createAsyncThunk(
-  "post/getPostById",
-  async (postId, thunkAPI) => {
+//Create new reservation
+export const createReservation = createAsyncThunk(
+  "reservation/create",
+  async (reservationData, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      return await postService.getPostById(postId, token);
+
+      return await reservationService.createReservation(reservationData, token);
     } catch (error) {
       const message =
         (error.response &&
@@ -50,14 +51,14 @@ export const getPostById = createAsyncThunk(
     }
   }
 );
-//Create new post
-export const createPost = createAsyncThunk(
-  "post/create",
-  async (postData, thunkAPI) => {
+//Update reservation
+export const updateReservation = createAsyncThunk(
+  "reservation/update",
+  async (reservationData, thunkAPI) => {
     try {
+      console.log(reservationData);
       const token = thunkAPI.getState().auth.user.token;
-
-      return await postService.createPost(postData, token);
+      return await reservationService.updateReservation(reservationData, token);
     } catch (error) {
       const message =
         (error.response &&
@@ -70,33 +71,13 @@ export const createPost = createAsyncThunk(
     }
   }
 );
-//Update post
-export const updatePost = createAsyncThunk(
-  "post/update",
-  async (postData, thunkAPI) => {
-    try {
-      console.log(postData)
-      const token = thunkAPI.getState().auth.user.token;
-      return await postService.updatePost(postData, token);
-    } catch (error) {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
-
-      return thunkAPI.rejectWithValue(message);
-    }
-  }
-);
-//Delete post
-export const deletePost = createAsyncThunk(
-  "post/delete",
-  async (postId, thunkAPI) => {
+//Delete reservation
+export const deleteReservation = createAsyncThunk(
+  "reservation/delete",
+  async (reservationId, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      return await postService.deletePost(postId, token);
+      return await reservationService.deleteReservation(reservationId, token);
     } catch (error) {
       const message =
         (error.response &&
@@ -110,8 +91,8 @@ export const deletePost = createAsyncThunk(
   }
 );
 
-export const postSlice = createSlice({
-  name: "post",
+export const reservationSlice = createSlice({
+  name: "reservation",
   initialState,
   reducers: {
     reset: (state) => initialState,
@@ -135,92 +116,77 @@ export const postSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
-      //getAllPosts
-      .addCase(getAllPosts.pending, (state) => {
+
+      //getReservationById
+      .addCase(getReservationById.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getAllPosts.fulfilled, (state, action) => {
+      .addCase(getReservationById.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.posts = action.payload;
+        state.singleReservation = action.payload;
       })
-      .addCase(getAllPosts.rejected, (state, action) => {
+      .addCase(getReservationById.rejected, (state, action) => {
         state.isLoading = false;
         state.isSuccess = false;
         state.isError = true;
         state.message = action.payload;
         state.user = null;
       })
-      //getPostById
-      .addCase(getPostById.pending, (state) => {
+      //createReservation
+      .addCase(createReservation.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getPostById.fulfilled, (state, action) => {
+      .addCase(createReservation.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.singlePost = action.payload;
+        state.reservations.push(action.payload);
       })
-      .addCase(getPostById.rejected, (state, action) => {
+      .addCase(createReservation.rejected, (state, action) => {
         state.isLoading = false;
         state.isSuccess = false;
         state.isError = true;
         state.message = action.payload;
         state.user = null;
       })
-      //createPost
-      .addCase(createPost.pending, (state) => {
+      //deleteReservation
+      .addCase(deleteReservation.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(createPost.fulfilled, (state, action) => {
+      .addCase(deleteReservation.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.posts.push(action.payload);
-      })
-      .addCase(createPost.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isSuccess = false;
-        state.isError = true;
-        state.message = action.payload;
-        state.user = null;
-      })
-      //deletePost
-      .addCase(deletePost.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(deletePost.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-        state.posts.find((post, index) => {
-          if (post._id === action.payload.id) {
-            state.posts.splice(index, 1);
+        state.reservations.find((reservation, index) => {
+          if (reservation._id === action.payload.id) {
+            state.reservations.splice(index, 1);
             return true;
           }
           return false;
         });
       })
-      .addCase(deletePost.rejected, (state, action) => {
+      .addCase(deleteReservation.rejected, (state, action) => {
         state.isLoading = false;
         state.isSuccess = false;
         state.isError = true;
         state.message = action.payload;
         state.user = null;
       })
-      //updatePost
-      .addCase(updatePost.pending, (state) => {
+      //updateReservation
+      .addCase(updateReservation.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(updatePost.fulfilled, (state, action) => {
+      .addCase(updateReservation.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.posts.find((post, index) => {
-          if (post._id === action.payload._id) {
-            state.posts.splice(index, 1, action.payload);
+        state.reservations.find((reservation, index) => {
+          if (reservation._id === action.payload._id) {
+            state.reservations.splice(index, 1, action.payload);
             return true;
           }
           return false;
         });
       })
-      .addCase(updatePost.rejected, (state, action) => {
+      .addCase(updateReservation.rejected, (state, action) => {
         state.isLoading = false;
         state.isSuccess = false;
         state.isError = true;
@@ -230,5 +196,5 @@ export const postSlice = createSlice({
   },
 });
 
-export const { reset, setEditForm, resetEditForm } = postSlice.actions;
-export default postSlice.reducer;
+export const { reset, setEditForm, resetEditForm } = reservationSlice.actions;
+export default reservationSlice.reducer;
