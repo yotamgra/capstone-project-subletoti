@@ -59,6 +59,10 @@ export const authSlice = createSlice({
       localStorage.removeItem("user");
       state.user = null;
     },
+    addPostToUser: (state, action) => {
+      state.user.posts.push(action.payload)
+
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -96,5 +100,5 @@ export const authSlice = createSlice({
   },
 });
 
-export const { reset, logout } = authSlice.actions;
+export const { reset, logout,addPostToUser } = authSlice.actions;
 export default authSlice.reducer;
