@@ -53,6 +53,9 @@ function CheckIn({ post }) {
   };
 
   const onReserveClick = () => {
+    if(numberOfNights===0){
+      
+    }
     console.log(reservation);
   };
 
