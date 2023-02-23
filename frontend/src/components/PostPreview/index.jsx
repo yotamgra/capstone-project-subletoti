@@ -14,7 +14,7 @@ function PostPreview({ post }) {
       <img
         className="img"
         onClick={() => navigate(`/post/${post._id}`)}
-        src={post.imagesGallery[0]}
+        src={post.imagesGallery??[0]}
         alt={post.header}
       ></img>
       <div className="post-info">

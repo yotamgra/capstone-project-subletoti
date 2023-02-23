@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { register, reset } from "../../features/auth/authSlice";
+import {toast} from 'react-toastify'
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -23,7 +24,7 @@ function Register() {
   
   useEffect(() => {
     if (isError) {
-     alert(message);
+     toast.error(message);
     }
     if (isSuccess || user) {
       navigate("/");

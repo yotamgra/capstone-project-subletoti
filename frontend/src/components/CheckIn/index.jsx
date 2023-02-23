@@ -9,13 +9,17 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { useState } from "react";
 import dayjs from "dayjs";
 import { Button } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import {createReservation} from '../../features/reservations/reservationSlice'
 
 function CheckIn({ post }) {
   const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
   const intialState = {
     ownerUser: post.user,
-    guetUser: user._id,
+    guestUser: user._id,
     startDate: new Date(),
     endDate: new Date(),
     numberOfNights: 0,
@@ -53,10 +57,10 @@ function CheckIn({ post }) {
   };
 
   const onReserveClick = () => {
-    if(numberOfNights===0){
-      
+    if (numberOfNights === 0) {
+      return toast.error("you have to choose at least one night")
     }
-    console.log(reservation);
+    dispatch(createReservation(reservation))
   };
 
   return (

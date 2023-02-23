@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import {
   createPost,
   updatePost,
@@ -11,7 +12,8 @@ function NewPostForm() {
   const intialValue = {
     _id: null,
     header: "",
-    price: "",
+    price: 0,
+    cleaningFee: 0,
     description: "",
     location: "",
     imagesGallery: [],
@@ -25,11 +27,12 @@ function NewPostForm() {
 
   const dispatch = useDispatch();
 
-  const { editForm } = useSelector((state) => state.posts);
+  const { editForm, isError, message } = useSelector((state) => state.posts);
   const [isEdit, setIsEdit] = useState(editForm ? true : false);
 
   const onSubmit = () => {
-    dispatch(createPost({ post }));
+    const x = dispatch(createPost({ post }));
+    console.log("x", x);
     setPost(intialValue);
     setIsPostFormExpended(false);
   };
@@ -47,7 +50,10 @@ function NewPostForm() {
       setIsEdit(true);
       setIsPostFormExpended(true);
     }
-  }, [setPost, editForm, setIsEdit, dispatch]);
+    if (isError) {
+      toast.error(message);
+    }
+  }, [setPost, editForm, isError, message, setIsEdit, dispatch]);
 
   return (
     <div className="new-post-form-comp">
@@ -77,11 +83,23 @@ function NewPostForm() {
             <div className="form-group">
               <label htmlFor="text">Price</label>
               <input
-                type="text"
+                type="number"
                 name="price"
                 id="price"
                 value={post.price}
                 onChange={(e) => setPost({ ...post, price: e.target.value })}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="text">Cleaning fee</label>
+              <input
+                type="number"
+                name="cleaningFee"
+                id="cleaningFee"
+                value={post.cleaningFee}
+                onChange={(e) =>
+                  setPost({ ...post, cleaningFee: e.target.value })
+                }
               />
             </div>
             <div className="form-group">
