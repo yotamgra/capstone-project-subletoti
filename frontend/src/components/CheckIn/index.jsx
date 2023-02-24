@@ -20,6 +20,7 @@ function CheckIn({ post }) {
   const intialState = {
     ownerUser: post.user,
     guestUser: user._id,
+    postId: post._id,
     startDate: new Date(),
     endDate: new Date(),
     numberOfNights: 0,
