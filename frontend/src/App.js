@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Header from "./components/Header";
 import PostPage from "./pages/PostPage";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/" element={<Dashboard />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/post/:postId" element={<PostPage />} />
           </Routes>
         </div>

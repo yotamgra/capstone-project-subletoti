@@ -4,7 +4,7 @@ import { getAllPosts } from "../../features/posts/postSlice";
 import { useEffect } from "react";
 import PostPreview from "../PostPreview";
 import { toast } from "react-toastify";
-import { Space, Spin } from "antd";
+import {  Spin } from "antd";
 
 function PostsDisplay() {
   const { posts, isLoading, isError, message } = useSelector(
@@ -15,7 +15,7 @@ function PostsDisplay() {
 
   useEffect(() => {
     if (isError) {
-      console.log("error", message);
+       toast.error(message);
     }
     dispatch(getAllPosts());
   }, [dispatch, isError, message]);

@@ -17,7 +17,9 @@ function Profile() {
 
   return (
     <div>
-      <h1>Welcome {user && user.name}</h1>
+      <h1>{user && user.name.split(" ")[0]}'s Profile</h1>
+
+      <h3>My Posts</h3>
 
       
     </div>

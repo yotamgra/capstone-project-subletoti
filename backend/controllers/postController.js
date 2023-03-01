@@ -16,6 +16,7 @@ const setPost = asyncHandler(async (req, res) => {
   const {
     header,
     price,
+    cleaningFee,
     location,
     description,
     imagesGallery,
@@ -23,7 +24,7 @@ const setPost = asyncHandler(async (req, res) => {
     disabledRanges,
   } = req.body.post;
 
-  if (!header || !price || !location) {
+  if (!header || !price || !location|| !cleaningFee) {
     res.status(400);
     throw new Error("Post header, price and location are required");
   }
@@ -31,6 +32,7 @@ const setPost = asyncHandler(async (req, res) => {
     user: req.user.id,
     header,
     price,
+    cleaningFee,
     location,
     description: description || "",
     imagesGallery: imagesGallery || [],

@@ -6,7 +6,7 @@ import {
   updatePost,
   resetEditForm,
 } from "../../features/posts/postSlice";
-import{addPostToUser} from '../../features/auth/authSlice'
+
 import OwnerDatePicker from "../OwnerDatePicker";
 
 function NewPostForm() {
@@ -32,9 +32,10 @@ function NewPostForm() {
   const [isEdit, setIsEdit] = useState(editForm ? true : false);
 
   const onSubmit = async () => {
-    const response = await dispatch(createPost({ post }));
-    const postId = response.payload._id;
-    dispatch(addPostToUser(postId))
+    console.log(post)
+     dispatch(createPost({ post }));
+   
+    
     setPost(intialValue);
     setIsPostFormExpended(false);
   };
