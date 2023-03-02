@@ -1,32 +1,8 @@
 import "./style.scss";
-import { useSelector, useDispatch } from "react-redux";
-import { getAllPosts } from "../../features/posts/postSlice";
-import { useEffect } from "react";
+
 import PostPreview from "../PostPreview";
-import { toast } from "react-toastify";
-import {  Spin } from "antd";
 
-function PostsDisplay() {
-  const { posts, isLoading, isError, message } = useSelector(
-    (state) => state.posts
-  );
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (isError) {
-       toast.error(message);
-    }
-    dispatch(getAllPosts());
-  }, [dispatch, isError, message]);
-
-  if (isLoading) {
-    return (
-      <div className="posts-display-comp">
-        <Spin className="spinner" tip="Loading" size="large" />
-      </div>
-    );
-  }
+function PostsDisplay({posts}) {
   return (
     <>
       <div className="posts-display-comp">
