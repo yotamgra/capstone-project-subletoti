@@ -10,6 +10,7 @@ import {
 } from "../../features/posts/postSlice";
 import { toast } from "react-toastify";
 
+
 function DrawerForm() {
   const [open, setOpen] = useState(false);
 
@@ -105,6 +106,7 @@ function DrawerForm() {
           setImg={setImg}
           editForm={editForm}
         />
+        
       </Drawer>
     </>
   );

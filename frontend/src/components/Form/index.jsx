@@ -79,6 +79,7 @@ function NewForm({ post, setPost, img, setImg, editForm }) {
           post={post}
           setPost={setPost}
           editForm={editForm}
+          direction="horizontal"
         />
       </Form>
     </div>

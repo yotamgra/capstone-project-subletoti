@@ -7,6 +7,7 @@ import NewPostForm from "../../components/NewPostForm";
 import { toast } from "react-toastify";
 import { Spin } from "antd";
 import DrawerForm from "../../components/DrawerForm";
+import MobilePostForm from "../../components/MobilePostForm";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -46,6 +47,7 @@ function Dashboard() {
 
       {/* <NewPostForm /> */}
       <DrawerForm />
+      <MobilePostForm />
 
       {user && <PostsDisplay posts={posts} />}
     </div>

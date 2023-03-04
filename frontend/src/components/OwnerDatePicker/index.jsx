@@ -8,7 +8,7 @@ import { resetEditForm } from "../../features/posts/postSlice";
 import dayjs from "dayjs";
 import { Box, Button } from "@mui/material";
 
-function OwnerDatePicker({ post, setPost, editForm }) {
+function OwnerDatePicker({ post, setPost, editForm, direction }) {
   const [selectionRange, setSelectionRange] = useState({
     startDate: new Date(),
     endDate: new Date(),
@@ -122,11 +122,13 @@ function OwnerDatePicker({ post, setPost, editForm }) {
         ranges={[selectionRange]}
         onChange={handleSelect}
         months={2}
-        direction="horizontal"
+        direction={direction}
         disabledDay={disabledDay}
         minDate={today}
       />
-      <Button className="dis-button" onClick={onDisableButton}>Disable these dates</Button >
+      <Button className="dis-button" onClick={onDisableButton}>
+        Disable these dates
+      </Button>
 
       {post.disabledRanges.length > 0 &&
         post.disabledRanges.map((range, index) => (
