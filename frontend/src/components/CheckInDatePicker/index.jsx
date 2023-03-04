@@ -80,7 +80,7 @@ function CheckInDatePicker({
         ranges={[selectionRange]}
         onChange={handleSelect}
         months={2}
-        direction="horizontal"
+        direction="vertical"
         disabledDay={disabledDay}
         minDate={today}
         rangeColors={["#e51d53"]}

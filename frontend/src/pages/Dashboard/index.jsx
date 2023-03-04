@@ -6,6 +6,7 @@ import PostsDisplay from "../../components/PostsDisplay";
 import NewPostForm from "../../components/NewPostForm";
 import { toast } from "react-toastify";
 import { Spin } from "antd";
+import DrawerForm from "../../components/DrawerForm";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -43,7 +44,8 @@ function Dashboard() {
     <div>
       <h1>Welcome {user && user.name}</h1>
 
-      <NewPostForm />
+      {/* <NewPostForm /> */}
+      <DrawerForm />
 
       {user && <PostsDisplay posts={posts} />}
     </div>
