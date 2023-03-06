@@ -6,4 +6,16 @@
     flex-direction: row;
     justify-content: space-between;
   }
+  .form{
+    position: relative;
+  }
+  .close {
+    position: absolute;
+    top: -30px;
+    right: -10px;
+    color: #6666;
+    cursor: pointer;
+    border: none;
+    background: none;
+  }
 }

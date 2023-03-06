@@ -1,9 +1,8 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllPosts } from "../../features/posts/postSlice";
 import PostsDisplay from "../../components/PostsDisplay";
-import NewPostForm from "../../components/NewPostForm";
 import { toast } from "react-toastify";
 import { Spin } from "antd";
 import DrawerForm from "../../components/DrawerForm";
@@ -18,6 +17,39 @@ function Dashboard() {
     (state) => state.posts
   );
   const shouldDispatch = useRef(true);
+
+  const [drawerWidth, setDrawerWidth] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
+  const [calanderDirection, setCalanderDirection] = useState("horizontal");
+
+  const doWidthCalc = () => {
+    if (window.innerWidth < 450) {
+      setIsMobile(true);
+      setIsDesktop(false);
+    } else if (window.innerWidth < 750) {
+      setDrawerWidth(window.innerWidth);
+      setCalanderDirection("vertical");
+      setIsDesktop(true);
+      setIsMobile(false);
+    } else if (window.innerWidth > 750) {
+      setDrawerWidth(750);
+      setCalanderDirection("horizontal");
+      setIsDesktop(true);
+      setIsMobile(false);
+    }
+  };
+  useEffect(() => {
+    doWidthCalc();
+
+    window.addEventListener("resize", doWidthCalc);
+
+    // cleanup effect.
+    return () => {
+      window.removeEventListener("resize", doWidthCalc);
+    };
+  }, []);
+
   useEffect(() => {
     if (!user) {
       navigate("/login");
@@ -46,8 +78,13 @@ function Dashboard() {
       <h1>Welcome {user && user.name}</h1>
 
       {/* <NewPostForm /> */}
-      <DrawerForm />
-      <MobilePostForm />
+      {isDesktop && (
+        <DrawerForm
+          drawerWidth={drawerWidth}
+          calanderDirection={calanderDirection}
+        />
+      )}
+      {isMobile && <MobilePostForm />}
 
       {user && <PostsDisplay posts={posts} />}
     </div>

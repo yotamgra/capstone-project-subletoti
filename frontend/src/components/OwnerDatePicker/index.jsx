@@ -125,6 +125,7 @@ function OwnerDatePicker({ post, setPost, editForm, direction }) {
         direction={direction}
         disabledDay={disabledDay}
         minDate={today}
+        
       />
       <Button className="dis-button" onClick={onDisableButton}>
         Disable these dates

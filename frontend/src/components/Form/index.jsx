@@ -6,7 +6,7 @@ import OwnerDatePicker from "../OwnerDatePicker";
 
 const { TextArea } = Input;
 
-function NewForm({ post, setPost, img, setImg, editForm }) {
+function NewForm({ post, setPost, img, setImg, editForm, calanderDirection }) {
   return (
     <div className="new-form-comp">
       <Form
@@ -79,7 +79,7 @@ function NewForm({ post, setPost, img, setImg, editForm }) {
           post={post}
           setPost={setPost}
           editForm={editForm}
-          direction="horizontal"
+          direction={calanderDirection}
         />
       </Form>
     </div>

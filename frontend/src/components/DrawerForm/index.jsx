@@ -10,8 +10,7 @@ import {
 } from "../../features/posts/postSlice";
 import { toast } from "react-toastify";
 
-
-function DrawerForm() {
+function DrawerForm({ drawerWidth, calanderDirection }) {
   const [open, setOpen] = useState(false);
 
   const showDrawer = () => {
@@ -45,21 +44,21 @@ function DrawerForm() {
     dispatch(createPost({ post }));
 
     setPost(intialValue);
-    onClose()
+    onClose();
   };
 
   const onUpdatePost = () => {
     dispatch(updatePost(post));
     dispatch(resetEditForm());
     setPost(intialValue);
-    onClose()
+    onClose();
   };
 
   useEffect(() => {
     if (editForm) {
       setPost(editForm);
       setIsEdit(true);
-      showDrawer()
+      showDrawer();
     }
     if (isError) {
       toast.error(message);
@@ -74,7 +73,7 @@ function DrawerForm() {
       <Drawer
         title="Add new post"
         placement="left"
-        width={750}
+        width={drawerWidth}
         onClose={onClose}
         open={open}
         extra={
@@ -82,7 +81,7 @@ function DrawerForm() {
             <Button
               onClick={() => {
                 setPost(intialValue);
-                setIsEdit(false)
+                setIsEdit(false);
               }}
             >
               Clear Form
@@ -105,8 +104,8 @@ function DrawerForm() {
           img={img}
           setImg={setImg}
           editForm={editForm}
+          calanderDirection={calanderDirection}
         />
-        
       </Drawer>
     </>
   );
