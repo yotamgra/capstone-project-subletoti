@@ -35,8 +35,8 @@ function MobilePostForm() {
   const intialValue = {
     _id: null,
     header: "",
-    price: null,
-    cleaningFee: null,
+    price: "",
+    cleaningFee: "",
     description: "",
     location: "",
     imagesGallery: [],
@@ -82,24 +82,24 @@ function MobilePostForm() {
       <Form
         layout="horizontal"
         footer={
-          <Button block type="submit" color="primary" size="large">
+          <Button onClick={onSubmit} block type="submit" color="primary" size="large">
             Add new post
           </Button>
         }
       >
         <Form.Item
-          name="Header"
+         
           label="Header"
           rules={[{ required: true, message: "header is required" }]}
         >
           <Input
             placeholder="post`s header"
             value={post.header}
-            onChange={(e) => setPost({ ...post, header: e.target.value })}
+            onChange={(e) => setPost({ ...post, header: e })}
           />
         </Form.Item>
         <Form.Item
-          name="Price per night"
+        
           label="Price per night"
           rules={[{ required: true, message: "Price per night is required" }]}
         >
@@ -111,7 +111,7 @@ function MobilePostForm() {
           />
         </Form.Item>
         <Form.Item
-          name="Cleaning fee"
+         
           label="Cleaning fee"
           rules={[{ required: true, message: "Price per night is required" }]}
         >
@@ -123,21 +123,21 @@ function MobilePostForm() {
           />
         </Form.Item>
         <Form.Item
-          name="Location"
+         
           label="Location"
           rules={[{ required: true, message: "location is required" }]}
         >
           <Input
             placeholder="post`s location"
             value={post.location}
-            onChange={(e) => setPost({ ...post, location: e.target.value })}
+            onChange={(e) => setPost({ ...post, location: e })}
           />
         </Form.Item>
-        <Form.Item name="Description" label="Description">
+        <Form.Item  label="Description">
           <TextArea
             placeholder="post`s description"
             value={post.description}
-            onChange={(e) => setPost({ ...post, description: e.target.value })}
+            onChange={(e) => setPost({ ...post, description: e })}
             maxLength={100}
             rows={2}
             showCount
@@ -145,7 +145,7 @@ function MobilePostForm() {
         </Form.Item>
         <Form.Item
           className="url-form-item"
-          name="Images URL"
+          
           label="Images URL"
         >
           <Input
@@ -165,7 +165,7 @@ function MobilePostForm() {
         </Form.Item>
         <Form.Item
           className="Disabeled Dates"
-          name="Disabeled Dates"
+          
           label="Disabeled Dates"
         >
 
