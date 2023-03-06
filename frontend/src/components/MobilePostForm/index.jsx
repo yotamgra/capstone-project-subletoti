@@ -1,22 +1,10 @@
 import "./style.scss";
 
 import OwnerDatePicker from "../OwnerDatePicker";
-import {
-  Form,
-  Input,
-  Button,
-  Dialog,
-  TextArea,
-  DatePicker,
-  Selector,
-  Slider,
-  Stepper,
-  Switch,
-} from "antd-mobile";
-import dayjs from "dayjs";
-import { DatePickerRef } from "antd-mobile/es/components/date-picker";
+import { Form, Input, Button, Dialog, TextArea } from "antd-mobile";
+
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { createRef, useEffect, useRef, useState } from "react";
 
 import {
   createPost,
@@ -26,12 +14,6 @@ import {
 import { toast } from "react-toastify";
 
 function MobilePostForm() {
-  const onFinish = (values) => {
-    Dialog.alert({
-      content: <pre>{JSON.stringify(values, null, 2)}</pre>,
-    });
-  };
-
   const intialValue = {
     _id: null,
     header: "",
@@ -51,6 +33,12 @@ function MobilePostForm() {
 
   const [isFormOpen, setIsFormOpen] = useState(false);
 
+  const goToTop = () => {
+    window.scrollTo({
+        top: 100,
+        behavior: 'smooth',
+    });
+};
   const dispatch = useDispatch();
 
   const onSubmit = async () => {
@@ -73,6 +61,7 @@ function MobilePostForm() {
       setPost(editForm);
       setIsEdit(true);
       setIsFormOpen(true);
+      goToTop()
     }
 
     if (isError) {
@@ -88,6 +77,7 @@ function MobilePostForm() {
       {isFormOpen && (
         <>
           <Form
+     
             className="form"
             layout="horizontal"
             footer={
