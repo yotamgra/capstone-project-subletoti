@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import reservationService from "./reservationService.js";
 
 const initialState = {
-  resevations: [],
+  reservations: [],
   // singleReservation: null,
   // editForm: null,
   isError: false,
@@ -140,6 +140,7 @@ export const reservationSlice = createSlice({
       .addCase(createReservation.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
+
         state.reservations.push(action.payload);
       })
       .addCase(createReservation.rejected, (state, action) => {

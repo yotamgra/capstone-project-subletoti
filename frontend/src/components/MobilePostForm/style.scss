@@ -1,0 +1,21 @@
+.mobile-post-form-comp {
+  // border: 2px solid black;
+  .url-form-item {
+    // background-color: red;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .form{
+    position: relative;
+  }
+  .close {
+    position: absolute;
+    top: -30px;
+    right: -10px;
+    color: #6666;
+    cursor: pointer;
+    border: none;
+    background: none;
+  }
+}

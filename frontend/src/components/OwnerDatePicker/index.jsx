@@ -8,7 +8,7 @@ import { resetEditForm } from "../../features/posts/postSlice";
 import dayjs from "dayjs";
 import { Box, Button } from "@mui/material";
 
-function OwnerDatePicker({ post, setPost, editForm }) {
+function OwnerDatePicker({ post, setPost, editForm, direction }) {
   const [selectionRange, setSelectionRange] = useState({
     startDate: new Date(),
     endDate: new Date(),
@@ -20,7 +20,6 @@ function OwnerDatePicker({ post, setPost, editForm }) {
   const today = new Date();
 
   const handleSelect = (ranges) => {
-    
     const { startDate, endDate } = ranges.selection;
     const { disabledDates } = post;
     let isValid = true;
@@ -117,32 +116,20 @@ function OwnerDatePicker({ post, setPost, editForm }) {
     }
   }, [editForm, dispatch, setPost]);
 
-  // const selectionRange1 = {
-  //   startDate: new Date('Sun Feb 05 2023'),
-  //   endDate: new Date('Wed Feb 08 2023'),
-  //   key: 'selection',
-  //   color: 'red'
-  // }
-  // const selectionRange2 = {
-  //   startDate: new Date('Sun Feb 12 2023'),
-  //   endDate: new Date('Wed Feb 15 2023'),
-  //   key: 'selection',
-  //   color: 'blue'
-  // }
-
   return (
     <div className="owner-date-picker-comp">
       <DateRangePicker
-        // ranges={[selectionRange]}
-        // ranges={[selectionRange,selectionRange1,selectionRange2]}
         ranges={[selectionRange]}
         onChange={handleSelect}
         months={2}
-        direction="horizontal"
-        // disabledDay={disabledDay}
-        // minDate={today}
+        direction={direction}
+        disabledDay={disabledDay}
+        minDate={today}
+        
       />
-      <button onClick={onDisableButton}>Disable these dates</button>
+      <Button className="dis-button" onClick={onDisableButton}>
+        Disable these dates
+      </Button>
 
       {post.disabledRanges.length > 0 &&
         post.disabledRanges.map((range, index) => (

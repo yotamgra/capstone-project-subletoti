@@ -16,6 +16,7 @@ const setPost = asyncHandler(async (req, res) => {
   const {
     header,
     price,
+    cleaningFee,
     location,
     description,
     imagesGallery,
@@ -23,27 +24,34 @@ const setPost = asyncHandler(async (req, res) => {
     disabledRanges,
   } = req.body.post;
 
-  if (!header || !price || !location) {
+  if (!header || !price || !location || !cleaningFee) {
     res.status(400);
     throw new Error("Post header, price and location are required");
   }
-  const post = await Post.create({
-    user: req.user.id,
-    header,
-    price,
-    location,
-    description: description || "",
-    imagesGallery: imagesGallery || [],
-    disabledDates,
-    disabledRanges,
-  });
-  res.status(201).json(post);
+  try {
+    const post = await Post.create({
+      user: req.user.id,
+      header,
+      price,
+      cleaningFee,
+      location,
+      description: description || "",
+      imagesGallery: imagesGallery || [],
+      disabledDates,
+      disabledRanges,
+    });
+    res.status(201).json(post);
+  } catch (error) {
+    res.status(400);
+    throw new Error(error.message);
+  }
 });
 
 //@desc    Get post by id
 //@route   PUT /posts/:id
 //@access  Private
 const getPostById = asyncHandler(async (req, res) => {
+  
   const post = await Post.findById(req.params.id);
   if (!post) {
     res.status(400);
@@ -54,12 +62,6 @@ const getPostById = asyncHandler(async (req, res) => {
   if (!req.user) {
     res.status(401);
     throw new Error("User not found");
-  }
-
-  //Make sure the loggedin user matches the post user
-  if (post.user.toString() !== req.user.id) {
-    res.status(401);
-    throw new Error("User not authorized");
   }
 
   res.status(200).json(post);
@@ -74,7 +76,6 @@ const updatePost = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Post not found");
   }
-  
 
   //Check for user
   if (!req.user) {
@@ -87,7 +88,6 @@ const updatePost = asyncHandler(async (req, res) => {
     res.status(401);
     throw new Error("User not authorized");
   }
-
 
   const updatedPost = await Post.findByIdAndUpdate(req.params.id, req.body, {
     new: true,

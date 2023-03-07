@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { reset, login } from "../../features/auth/authSlice.js";
 
 function Login() {
@@ -20,7 +21,7 @@ function Login() {
 
   useEffect(() => {
     if (isError) {
-      alert(message);
+      toast.error(message);
     }
     if (isSuccess || user) {
       navigate("/");
@@ -43,6 +44,14 @@ function Login() {
     };
     dispatch(login(userData));
   };
+  
+  if (isLoading) {
+    return (
+      <>
+        <h3>Loading...</h3>
+      </>
+    );
+  }
   return (
     <>
       <section>

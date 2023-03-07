@@ -110,6 +110,12 @@ export default function AuthMenu() {
                     aria-labelledby="composition-button"
                     onKeyDown={handleListKeyDown}
                   >
+                    <MenuItem onClick={handleClose} >
+                    <Link className="flex " to="/profile">
+                      My Profile
+                      <AccountCircleIcon style={iconMunueStyle} />
+                      </Link>
+                    </MenuItem>
                     <MenuItem
                       onClick={(e) => {
                         handleClose(e);

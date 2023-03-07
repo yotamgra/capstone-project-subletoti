@@ -35,7 +35,7 @@ const createPost = async (postData, token) => {
   };
 
   const response = await axios.post(API_URL, postData, config);
-
+  console.log(response.data)
   return response.data;
 };
 //Update post
