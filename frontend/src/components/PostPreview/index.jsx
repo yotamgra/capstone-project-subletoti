@@ -36,6 +36,7 @@ function PostPreview({ post }) {
         {user._id === post.user ? (
           <>
             <button
+              className="btn round"
               onClick={() => {
                 dispatch(deletePost(post._id));
               }}
