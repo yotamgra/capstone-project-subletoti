@@ -1,13 +1,9 @@
-.post-page-comp {
-    font-size: red;
+.dashboard-loading-comp {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    .active {
-        
-
-    }
-
-    .subactive {
-
-    }
-    // all styles here.
+  .spinner {
+    justify-self: center;
+  }
 }

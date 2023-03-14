@@ -9,8 +9,9 @@ function ImagesGallery({ gallery }) {
     if (window.innerWidth < 750) {
       setSliderWidth(window.innerWidth - 30);
       setSliderHeight((window.innerWidth - 30) * 0.7);
-    } else if (window.innerWidth < 750) {
-    } else if (window.innerWidth > 750) {
+    } else {
+      setSliderWidth(720);
+      setSliderHeight(504);
     }
   };
   useEffect(() => {
