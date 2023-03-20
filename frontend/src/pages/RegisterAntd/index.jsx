@@ -1,22 +1,24 @@
 import {
-  AlipayCircleOutlined,
+  FacebookOutlined,
   LockOutlined,
-  MobileOutlined,
-  TaobaoCircleOutlined,
+  MailOutlined,
+  GoogleOutlined,
   UserOutlined,
-  WeiboCircleOutlined,
+  TwitterOutlined,
 } from "@ant-design/icons";
 import {
   LoginForm,
-  ProFormCaptcha,
   ProFormCheckbox,
   ProFormText,
   ProConfigProvider,
 } from "@ant-design/pro-components";
-import { message, Space, Tabs } from "antd";
+import { Space, Tabs } from "antd";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { register, reset } from "../../features/auth/authSlice";
 
 const iconStyles = {
   marginInlineStart: "16px",
@@ -27,20 +29,66 @@ const iconStyles = {
 };
 
 const RegisterAntd = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    password2: "",
+  });
+
+  const { name, email, password, password2 } = formData;
+
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [loginType, setLoginType] = useState("register");
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+      setFormData((prevState) => ({
+        ...prevState,
+        password: "",
+        password2: "",
+      }));
+    }
+    if (isSuccess || user) {
+      navigate("/");
+    }
+    dispatch(reset());
+  }, [user, isError, isSuccess, message, navigate, dispatch]);
+
+  const onSubmit = (e) => {
+    if (password !== password2) {
+      toast.error("Passwords do not match");
+    } else {
+      const userData = {
+        name,
+        email,
+        password,
+      };
+      dispatch(register(userData));
+    }
+  };
+
   return (
     <ProConfigProvider hashed={false}>
       <div style={{ backgroundColor: "white" }}>
         <LoginForm
+          onFinish={onSubmit}
+          submitter={{ searchConfig: { submitText: "Submit" } }}
           logo=""
           title="Register"
           actions={
             <Space>
-              hahah
-              <AlipayCircleOutlined style={iconStyles} />
-              <TaobaoCircleOutlined style={iconStyles} />
-              <WeiboCircleOutlined style={iconStyles} />
+              or Sign Up using:
+              <FacebookOutlined style={iconStyles} />
+              <GoogleOutlined style={iconStyles} />
+              <TwitterOutlined style={iconStyles} />
             </Space>
           }
         >
@@ -55,101 +103,100 @@ const RegisterAntd = () => {
             <Tabs.TabPane key={"login"} tab={"already have an account?"} />
             <Tabs.TabPane key={"register"} tab={"create new account"} />
           </Tabs>
-          {loginType === "register" && (
-            <>
-              <ProFormText
-                name="username"
-                fieldProps={{
-                  size: "large",
-                  prefix: <UserOutlined className={"prefixIcon"} />,
-                }}
-                placeholder={"用户名: admin or user"}
-                rules={[
-                  {
-                    required: true,
-                    message: "请输入用户名!",
-                  },
-                ]}
-              />
-              <ProFormText.Password
-                name="password"
-                fieldProps={{
-                  size: "large",
-                  prefix: <LockOutlined className={"prefixIcon"} />,
-                }}
-                placeholder={"密码: ant.design"}
-                rules={[
-                  {
-                    required: true,
-                    message: "请输入密码！",
-                  },
-                ]}
-              />
-            </>
-          )}
-          {loginType === "phone" && (
-            <>
-              <ProFormText
-                fieldProps={{
-                  size: "large",
-                  prefix: <MobileOutlined className={"prefixIcon"} />,
-                }}
-                name="mobile"
-                placeholder={"手机号"}
-                rules={[
-                  {
-                    required: true,
-                    message: "请输入手机号！",
-                  },
-                  {
-                    pattern: /^1\d{10}$/,
-                    message: "手机号格式错误！",
-                  },
-                ]}
-              />
-              <ProFormCaptcha
-                fieldProps={{
-                  size: "large",
-                  prefix: <LockOutlined className={"prefixIcon"} />,
-                }}
-                captchaProps={{
-                  size: "large",
-                }}
-                placeholder={"请输入验证码"}
-                captchaTextRender={(timing, count) => {
-                  if (timing) {
-                    return `${count} ${"获取验证码"}`;
-                  }
-                  return "获取验证码";
-                }}
-                name="captcha"
-                rules={[
-                  {
-                    required: true,
-                    message: "请输入验证码！",
-                  },
-                ]}
-                onGetCaptcha={async () => {
-                  message.success("获取验证码成功！验证码为：1234");
-                }}
-              />
-            </>
-          )}
+          <ProFormText
+            name="name"
+            fieldProps={{
+              size: "large",
+              prefix: <UserOutlined className={"prefixIcon"} />,
+            }}
+            placeholder={"name"}
+            rules={[
+              {
+                required: true,
+                message: "name is required!",
+              },
+            ]}
+            value={name}
+            onChange={(e) => {
+              setFormData((prevState) => ({
+                ...prevState,
+                name: e.target.value,
+              }));
+            }}
+          />
+          <ProFormText
+            name="email"
+            fieldProps={{
+              size: "large",
+
+              prefix: <MailOutlined className={"prefixIcon"} />,
+            }}
+            placeholder={"email"}
+            rules={[
+              {
+                required: true,
+                message: "email is required!",
+              },
+            ]}
+            value={email}
+            onChange={(e) => {
+              setFormData((prevState) => ({
+                ...prevState,
+                email: e.target.value,
+              }));
+            }}
+          />
+          <ProFormText.Password
+            name="password"
+            fieldProps={{
+              size: "large",
+              prefix: <LockOutlined className={"prefixIcon"} />,
+            }}
+            placeholder={"password"}
+            rules={[
+              {
+                required: true,
+                message: "password is required!",
+              },
+            ]}
+            value={password}
+            onChange={(e) => {
+              setFormData((prevState) => ({
+                ...prevState,
+                password: e.target.value,
+              }));
+            }}
+          />
+          <ProFormText.Password
+            name="password2"
+            fieldProps={{
+              size: "large",
+              prefix: <LockOutlined className={"prefixIcon"} />,
+            }}
+            placeholder={"confirm your password"}
+            rules={[
+              {
+                required: true,
+                message: "password is required!",
+              },
+            ]}
+            value={password2}
+            onChange={(e) => {
+              setFormData((prevState) => ({
+                ...prevState,
+                password2: e.target.value,
+              }));
+            }}
+          />
+
           <div
             style={{
               marginBlockEnd: 24,
             }}
           >
             <ProFormCheckbox noStyle name="autoLogin">
-              自动登录
+              remmember me
             </ProFormCheckbox>
-            <a
-              style={{
-                float: "right",
-              }}
-            >
-              忘记密码
-            </a>
           </div>
         </LoginForm>
       </div>

@@ -1,19 +1,20 @@
 import {
   AlipayCircleOutlined,
   LockOutlined,
-  MobileOutlined,
   TaobaoCircleOutlined,
-  UserOutlined,
+  MailOutlined,
   WeiboCircleOutlined,
+  FacebookOutlined,
+  GoogleOutlined,
+  TwitterOutlined,
 } from "@ant-design/icons";
 import {
   LoginForm,
-  ProFormCaptcha,
   ProFormCheckbox,
   ProFormText,
   ProConfigProvider,
 } from "@ant-design/pro-components";
-import { message, Space, Spin, Tabs } from "antd";
+import { Space, Spin, Tabs } from "antd";
 
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -83,11 +84,11 @@ const LoginAntd = () => {
           title="Login"
           actions={
             <Space>
-              hahah
-              <AlipayCircleOutlined style={iconStyles} />
-              <TaobaoCircleOutlined style={iconStyles} />
-              <WeiboCircleOutlined style={iconStyles} />
-            </Space>
+            or Sign Up using:
+            <FacebookOutlined style={iconStyles} />
+            <GoogleOutlined style={iconStyles} />
+            <TwitterOutlined style={iconStyles} />
+          </Space>
           }
         >
           <Tabs
@@ -101,53 +102,52 @@ const LoginAntd = () => {
             <Tabs.TabPane key={"login"} tab={"already have an account?"} />
             <Tabs.TabPane key={"register"} tab={"create new account"} />
           </Tabs>
-          {loginType === "login" && (
-            <>
-              <ProFormText
-                name="email"
-                fieldProps={{
-                  size: "large",
-                  prefix: <UserOutlined className={"prefixIcon"} />,
-                }}
-                placeholder={"email"}
-                rules={[
-                  {
-                    required: true,
-                    message: "email is required!",
-                  },
-                ]}
-                value={email}
-                onChange={(e) => {
-                  setFormData((prevState) => ({
-                    ...prevState,
-                    email: e.target.value,
-                  }));
-                }}
-              />
-              <ProFormText.Password
-                name="password"
-                fieldProps={{
-                  size: "large",
-                  prefix: <LockOutlined className={"prefixIcon"} />,
-                }}
-                placeholder={"password"}
-                rules={[
-                  {
-                    required: true,
-                    message: "password is required!",
-                  },
-                ]}
-                value={password}
-                onChange={(e) => {
-                  setFormData((prevState) => ({
-                    ...prevState,
-                    password: e.target.value,
-                  }));
-                }}
-              />
-            </>
-          )}
-         
+
+          <>
+            <ProFormText
+              name="email"
+              fieldProps={{
+                size: "large",
+                prefix: <MailOutlined className={"prefixIcon"} />,
+              }}
+              placeholder={"email"}
+              rules={[
+                {
+                  required: true,
+                  message: "email is required!",
+                },
+              ]}
+              value={email}
+              onChange={(e) => {
+                setFormData((prevState) => ({
+                  ...prevState,
+                  email: e.target.value,
+                }));
+              }}
+            />
+            <ProFormText.Password
+              name="password"
+              fieldProps={{
+                size: "large",
+                prefix: <LockOutlined className={"prefixIcon"} />,
+              }}
+              placeholder={"password"}
+              rules={[
+                {
+                  required: true,
+                  message: "password is required!",
+                },
+              ]}
+              value={password}
+              onChange={(e) => {
+                setFormData((prevState) => ({
+                  ...prevState,
+                  password: e.target.value,
+                }));
+              }}
+            />
+          </>
+
           <div
             style={{
               marginBlockEnd: 24,
