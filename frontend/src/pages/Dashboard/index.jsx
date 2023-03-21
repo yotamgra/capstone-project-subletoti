@@ -1,3 +1,4 @@
+import "./style.scss";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,6 +8,7 @@ import { toast } from "react-toastify";
 import { Spin } from "antd";
 import DrawerForm from "../../components/DrawerForm";
 import MobilePostForm from "../../components/MobilePostForm";
+
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -60,21 +62,21 @@ function Dashboard() {
     if (isError) {
       toast.error(message);
     }
-    if (shouldDispatch.current) {
+    if (shouldDispatch.current && user) {
       shouldDispatch.current = false;
       dispatch(getAllPosts());
     }
-  }, [dispatch, isError, message]);
+  }, [dispatch, isError, message, user]);
 
   if (isLoading) {
     return (
-      <div className="posts-display-comp">
+      <div className="dashboard-loading-comp">
         <Spin className="spinner" tip="Loading" size="large" />
       </div>
     );
   }
   return (
-    <div>
+    <div className="dashboard-comp">
       <h1>Welcome {user && user.name}</h1>
 
       {/* <NewPostForm /> */}

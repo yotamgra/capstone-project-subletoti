@@ -1,16 +1,14 @@
-import { useLocation, useNavigate } from "react-router-dom";
-import ImgesGallery from "../../components/ImagesGallery";
+import { useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getPostById } from "../../features/posts/postSlice";
 import { useEffect } from "react";
 import "./style.scss";
-import CheckIn from "../../components/CheckIn";
 import GeneralPost from "../../components/GeneralPost";
 import MyPost from "../../components/MyPost";
 
 function PostPage() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+
   const location = useLocation();
   const postId = location.pathname.split("/")[2];
   const { singlePost, isLoading, isError, message } = useSelector(

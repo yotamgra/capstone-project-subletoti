@@ -6,7 +6,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import { Button } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
@@ -29,6 +29,8 @@ function CheckIn({ post }) {
   };
 
   const [reservation, setReservation] = useState(intialState);
+
+  const [compClassName, setCompClassName] = useState("check-in-comp")
 
   //CheckInDatePicker vairables
   const [selectionRange, setSelectionRange] = useState({
@@ -64,8 +66,26 @@ function CheckIn({ post }) {
     dispatch(createReservation(reservation))
   };
 
+  const doWidthCalc = () => {
+    if (window.innerWidth < 750) {
+      setCompClassName("check-in-comp mobile")
+    } else {
+      setCompClassName("check-in-comp")
+    }
+  };
+  useEffect(() => {
+    doWidthCalc();
+
+    window.addEventListener("resize", doWidthCalc);
+
+    // cleanup effect.
+    return () => {
+      window.removeEventListener("resize", doWidthCalc);
+    };
+  }, []);
+
   return (
-    <div className="check-in-comp">
+    <div className={compClassName} >
       <header>
         <div>
           <span className="price-night">{post.price}</span>night

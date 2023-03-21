@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { reset, login } from "../../features/auth/authSlice.js";
+import LoginAntd from "../LoginAntd/index.jsx";
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -82,6 +83,7 @@ function Login() {
           <button type="submit">Submit</button>
         </div>
       </form>
+      <LoginAntd />
     </>
   );
 }

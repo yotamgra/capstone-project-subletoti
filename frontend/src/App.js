@@ -8,6 +8,8 @@ import Register from "./pages/Register";
 import Header from "./components/Header";
 import PostPage from "./pages/PostPage";
 import Profile from "./pages/Profile";
+import LoginAntd from "./pages/LoginAntd";
+import RegisterAntd from "./pages/RegisterAntd";
 
 
 function App() {
@@ -18,7 +20,9 @@ function App() {
           <Header />
           <Routes>
             <Route path="/" element={<Dashboard />} />
-            <Route path="/login" element={<Login />} />
+            {/* <Route path="/login" element={<Login />} /> */}
+            <Route path="/login" element={<LoginAntd />} />
+            <Route path="/register" element={<RegisterAntd />} />
             <Route path="/register" element={<Register />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/post/:postId" element={<PostPage />} />
