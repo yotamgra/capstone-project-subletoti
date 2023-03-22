@@ -6,7 +6,9 @@ function GeneralPost({ singlePost }) {
   return (
     <div className="general-post-comp">
       <>
-        <h1>{singlePost.header}</h1>
+        <header>
+          <h1>{singlePost.header}</h1>
+        </header>
         <ImgesGallery gallery={singlePost.imagesGallery} />
         <CheckIn post={singlePost} />
       </>

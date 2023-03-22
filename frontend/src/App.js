@@ -1,16 +1,12 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Dashboard from "./pages/Dashboard";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
 import Header from "./components/Header";
 import PostPage from "./pages/PostPage";
 import Profile from "./pages/Profile";
 import LoginAntd from "./pages/LoginAntd";
 import RegisterAntd from "./pages/RegisterAntd";
-
 
 function App() {
   return (
@@ -20,13 +16,10 @@ function App() {
           <Header />
           <Routes>
             <Route path="/" element={<Dashboard />} />
-            {/* <Route path="/login" element={<Login />} /> */}
             <Route path="/login" element={<LoginAntd />} />
             <Route path="/register" element={<RegisterAntd />} />
-            <Route path="/register" element={<Register />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/post/:postId" element={<PostPage />} />
-            
           </Routes>
         </div>
       </Router>

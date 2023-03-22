@@ -33,7 +33,7 @@ function PostPage() {
       {singlePost ? (
         <>
           {singlePost.user === user._id ? (
-            <MyPost />
+            <MyPost singlePost={singlePost} />
           ) : (
             <GeneralPost singlePost={singlePost} />
           )}

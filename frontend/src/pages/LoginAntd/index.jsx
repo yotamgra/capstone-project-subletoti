@@ -1,9 +1,6 @@
 import {
-  AlipayCircleOutlined,
   LockOutlined,
-  TaobaoCircleOutlined,
   MailOutlined,
-  WeiboCircleOutlined,
   FacebookOutlined,
   GoogleOutlined,
   TwitterOutlined,
@@ -84,11 +81,11 @@ const LoginAntd = () => {
           title="Login"
           actions={
             <Space>
-            or Sign Up using:
-            <FacebookOutlined style={iconStyles} />
-            <GoogleOutlined style={iconStyles} />
-            <TwitterOutlined style={iconStyles} />
-          </Space>
+              or Sign Up using:
+              <FacebookOutlined style={iconStyles} />
+              <GoogleOutlined style={iconStyles} />
+              <TwitterOutlined style={iconStyles} />
+            </Space>
           }
         >
           <Tabs

@@ -28,6 +28,11 @@
     }
   }
 
+  .modal {
+    width: 800px;
+    
+  }
+
   .check-in-guests-container {
     display: flex;
     flex-direction: column;
@@ -40,6 +45,7 @@
       display: flex;
       flex-direction: row;
       justify-content: space-between;
+      cursor: pointer;
 
       border: 1px solid rgb(221, 221, 221);
       border-radius: 12px;
@@ -115,14 +121,14 @@
       border: 1px solid rgb(221, 221, 221);
       border-radius: 12px;
     }
-    .guests-close-button-container{
+    .guests-close-button-container {
       display: flex;
       justify-content: end;
-      .guests-close-button{
+      .guests-close-button {
         border-radius: 10px;
         font-family: inherit;
         font-weight: bold;
-        margin:20px 10px 10px 10px
+        margin: 20px 10px 10px 10px;
       }
     }
   }
@@ -141,32 +147,31 @@
       padding: 8px;
       letter-spacing: 1px;
     }
-    .reserve-button:hover{
-      background-color:#b20f4e
+    .reserve-button:hover {
+      background-color: #b20f4e;
     }
-  
   }
-  .wont-charge-para{
+  .wont-charge-para {
     text-align: center;
   }
-  .price-details-container{
+  .price-details-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 40px;
     padding: 0 10px;
 
-    .price-details{
+    .price-details {
       margin: 0;
     }
   }
   .border-total {
     border-bottom: 1px solid rgb(221, 221, 221);
   }
-  .bold-total{
+  .bold-total {
     font-weight: bold;
   }
 }
-.mobile{
+.mobile {
   width: 80%;
 }

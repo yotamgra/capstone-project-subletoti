@@ -1,14 +1,11 @@
-.post-page-comp {
-    font-size: red;
+.general-post-comp {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-    .active {
-        
-        
-
-    }
-
-    .subactive {
-
-    }
-    // all styles here.
+  header {
+    width: 100%;
+  }
+  // all styles here.
 }

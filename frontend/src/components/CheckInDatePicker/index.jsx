@@ -12,6 +12,7 @@ function CheckInDatePicker({
   setIsExpended,
   selectionRange,
   setSelectionRange,
+  direction,
 }) {
   const today = new Date();
 
@@ -45,7 +46,7 @@ function CheckInDatePicker({
         startDate,
         endDate,
         numberOfNights,
-        totalPrice: numberOfNights*post.price + post.cleaningFee
+        totalPrice: numberOfNights * post.price + post.cleaningFee,
       });
       console.log("truevalid");
     }
@@ -80,7 +81,7 @@ function CheckInDatePicker({
         ranges={[selectionRange]}
         onChange={handleSelect}
         months={2}
-        direction="vertical"
+        direction={direction}
         disabledDay={disabledDay}
         minDate={today}
         rangeColors={["#e51d53"]}

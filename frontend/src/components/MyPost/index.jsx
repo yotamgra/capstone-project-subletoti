@@ -1,9 +1,10 @@
+import UploadImages from "../UploadImages/UploadImeges";
 
-function MyPost() {
+function MyPost({singlePost}) {
  
   return (
     <div className="my-post-page-comp">
-      My Post
+      <UploadImages />
     </div>
   );
 }
