@@ -1,6 +1,8 @@
 import { PlusOutlined } from "@ant-design/icons";
 import { Modal, Upload } from "antd";
+import axios from "axios";
 import { useState } from "react";
+
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
     console.log("file", file);
@@ -14,30 +16,30 @@ const UploadImages = () => {
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
   const [fileList, setFileList] = useState([
-    {
-      uid: "-1",
-      name: "image.png",
-      status: "done",
-      url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    },
-    {
-      uid: "-2",
-      name: "image.png",
-      status: "done",
-      url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    },
-    {
-      uid: "-3",
-      name: "image.png",
-      status: "done",
-      url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    },
-    {
-      uid: "-4",
-      name: "image.png",
-      status: "done",
-      url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    },
+    // {
+    //   uid: "-1",
+    //   name: "image.png",
+    //   status: "done",
+    //   url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+    // },
+    // {
+    //   uid: "-2",
+    //   name: "image.png",
+    //   status: "done",
+    //   url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+    // },
+    // {
+    //   uid: "-3",
+    //   name: "image.png",
+    //   status: "done",
+    //   url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+    // },
+    // {
+    //   uid: "-4",
+    //   name: "image.png",
+    //   status: "done",
+    //   url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+    // },
   ]);
   const handleCancel = () => setPreviewOpen(false);
   const handlePreview = async (file) => {
@@ -50,9 +52,13 @@ const UploadImages = () => {
       file.name || file.url.substring(file.url.lastIndexOf("/") + 1)
     );
   };
-  const handleChange = ({ fileList: newFileList }) => {
+  const handleChange = async ({ fileList: newFileList }) => {
     setFileList(newFileList);
-    console.log(newFileList);
+    await axios.post(
+      "http://localhost:5000/posts/upload",
+      newFileList[0].originFileObj[0]
+    );
+    console.log(fileList[0]);
   };
   const uploadButton = (
     <div>
@@ -69,7 +75,7 @@ const UploadImages = () => {
   return (
     <>
       <Upload
-        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+        action="http://localhost:5000/posts/upload"
         listType="picture-card"
         fileList={fileList}
         onPreview={handlePreview}

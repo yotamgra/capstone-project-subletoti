@@ -14,10 +14,16 @@ import { toast } from "react-toastify";
 import { createReservation } from "../../features/reservations/reservationSlice";
 
 import { Modal } from "antd";
+import { useNavigate } from "react-router-dom";
+import validateReservesion from "./validations";
 
 function CheckIn({ post }) {
   const { user } = useSelector((state) => state.auth);
+  const { reservations, isError, isSuccess, isLoading, message } = useSelector(
+    (state) => state.reservations
+  );
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const intialState = {
     ownerUser: post.user,
@@ -32,7 +38,8 @@ function CheckIn({ post }) {
 
   const [reservation, setReservation] = useState(intialState);
 
-  const [compClassName, setCompClassName] = useState("check-in-comp");
+  // TODO - remove this state and replace it with CSS.
+  // const [compClassName, setCompClassName] = useState("check-in-comp");
 
   //CheckInDatePicker vairables
   const [selectionRange, setSelectionRange] = useState({
@@ -41,8 +48,8 @@ function CheckIn({ post }) {
     key: "selection",
   });
   const { startDate, endDate } = selectionRange;
-  let { numberOfNights } = reservation;
-  const { guets } = reservation;
+  // let { numberOfNights } = reservation;
+  const { guets, numberOfNights } = reservation;
   const rate = 5;
   const [isDatesExpended, setIsDatesExpended] = useState(false);
   const [datePickerDirection, setDatePickerDirection] = useState("horizontal");
@@ -51,11 +58,10 @@ function CheckIn({ post }) {
 
   //Modal varabels and functions
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalWidth,setModalWidth]=useState("800px")
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-  const handleCancel = () => {
+
+  // TODO - Replace this with CSS.
+  // const [modalWidth, setModalWidth] = useState("800px");
+  const closeModal = () => {
     setIsModalOpen(false);
   };
 
@@ -73,24 +79,19 @@ function CheckIn({ post }) {
   };
 
   const onReserveClick = () => {
-    if (numberOfNights === 0) {
-      return toast.error("you have to choose at least one night");
+    const errorMessage = validateReservesion({ numberOfNights });
+    if (errorMessage) {
+      return toast.error(errorMessage);
     }
+
     dispatch(createReservation(reservation));
   };
 
   const doWidthCalc = () => {
-    if (window.innerWidth < 750) {
-      setCompClassName("check-in-comp mobile");
-    } else {
-      setCompClassName("check-in-comp");
-    }
     if (window.innerWidth < 830) {
       setDatePickerDirection("vertical");
-      setModalWidth("450px")
     } else {
       setDatePickerDirection("horizontal");
-      setModalWidth("800px")
     }
   };
   useEffect(() => {
@@ -104,8 +105,14 @@ function CheckIn({ post }) {
     };
   }, []);
 
+  useEffect(() => {
+    if (isSuccess) {
+      // navigate("/confirm");
+    }
+  }, [isSuccess, isError]);
+
   return (
-    <div className={compClassName}>
+    <div className="check-in-comp">
       <header>
         <div>
           <span className="price-night">{post.price}</span>night
@@ -122,9 +129,11 @@ function CheckIn({ post }) {
           <Modal
             title="Basic Modal"
             open={isModalOpen}
-            onOk={handleOk}
-            onCancel={handleCancel}
-            width={modalWidth}
+            onOk={closeModal}
+            onCancel={closeModal}
+            // TODO - Replace this with CSS.
+            // width={modalWidth}
+            className="date-picker-modal"
           >
             <CheckInDatePicker
               post={post}

@@ -5,7 +5,10 @@
   border-radius: 12px;
   padding: 24px;
   box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
-  width: 40%;
+  width: 80%;
+  @media screen and (min-width: 750px) {
+    width: 40%;
+  }
 
   header {
     display: flex;
@@ -26,11 +29,6 @@
       margin: 0 6px;
       font-weight: bold;
     }
-  }
-
-  .modal {
-    width: 800px;
-    
   }
 
   .check-in-guests-container {
@@ -172,6 +170,33 @@
     font-weight: bold;
   }
 }
-.mobile {
-  width: 80%;
+
+.date-picker-modal .ant-modal-content {
+  width: 390px;
+  @media screen and (min-width: 450px) {
+    width: 450px;
+  }
+  @media screen and (min-width: 830px) {
+    width: 800px;
+  }
+}
+.ant-modal {
+  transform: translate(-4.5%, -10%);
+  @media screen and (min-width: 400px) {
+    transform: translate(2%, -10%);
+  }
+  @media screen and (min-width: 830px){
+    
+  }
+}
+.ant-modal-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@media screen and (min-width: 830px) {
+  /* Move the modal to the center of the screen */
+  .ant-modal {
+    transform: translate(-25%, -10%);
+  }
 }

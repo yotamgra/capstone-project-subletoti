@@ -7,6 +7,7 @@ import PostPage from "./pages/PostPage";
 import Profile from "./pages/Profile";
 import LoginAntd from "./pages/LoginAntd";
 import RegisterAntd from "./pages/RegisterAntd";
+import ConfirmPage from "./pages/ConfirmPage";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/register" element={<RegisterAntd />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/post/:postId" element={<PostPage />} />
+            <Route path="/confirm/:reservationId" element={<ConfirmPage />} />
           </Routes>
         </div>
       </Router>

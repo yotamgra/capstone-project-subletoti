@@ -5,6 +5,7 @@ import {
   getPostById,
   setPost,
   updatePost,
+  uploadImage
 } from "../controllers/postController.js";
 import { protect } from "../middleweare/authMiddleweare.js";
 

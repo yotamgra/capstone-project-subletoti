@@ -1,6 +1,11 @@
 import asyncHandler from "express-async-handler";
 import Post from "../model/postModel.js";
 
+const uploadImage = asyncHandler(async (req, res) => {
+  console.log(req.newFileList);
+  res.status(200).send("error");
+});
+
 //@desc    Get posts
 //@route   GET /posts
 //@access  Private
@@ -51,7 +56,6 @@ const setPost = asyncHandler(async (req, res) => {
 //@route   PUT /posts/:id
 //@access  Private
 const getPostById = asyncHandler(async (req, res) => {
-  
   const post = await Post.findById(req.params.id);
   if (!post) {
     res.status(400);
@@ -121,4 +125,4 @@ const deletePost = asyncHandler(async (req, res) => {
   res.status(200).json({ id: req.params.id });
 });
 
-export { getPosts, setPost, getPostById, updatePost, deletePost };
+export { getPosts, setPost, getPostById, updatePost, deletePost, uploadImage };
