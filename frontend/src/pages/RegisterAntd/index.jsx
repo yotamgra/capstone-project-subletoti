@@ -36,6 +36,12 @@ const RegisterAntd = () => {
     password2: "",
   });
 
+  const tubsItems = [
+    { label: "already have an account?", key: "login" },
+    { label: "create new account", key: "register" },
+  ];
+
+
   const { name, email, password, password2 } = formData;
 
   const { user, isLoading, isError, isSuccess, message } = useSelector(
@@ -99,9 +105,10 @@ const RegisterAntd = () => {
               setLoginType(activeKey);
               navigate(`/${activeKey}`);
             }}
+            items={tubsItems}
           >
-            <Tabs.TabPane key={"login"} tab={"already have an account?"} />
-            <Tabs.TabPane key={"register"} tab={"create new account"} />
+            {/* <Tabs.TabPane key={"login"} tab={"already have an account?"} />
+            <Tabs.TabPane key={"register"} tab={"create new account"} /> */}
           </Tabs>
           <ProFormText
             name="name"

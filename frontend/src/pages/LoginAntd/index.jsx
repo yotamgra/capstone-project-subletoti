@@ -1,9 +1,6 @@
 import {
-  AlipayCircleOutlined,
   LockOutlined,
-  TaobaoCircleOutlined,
   MailOutlined,
-  WeiboCircleOutlined,
   FacebookOutlined,
   GoogleOutlined,
   TwitterOutlined,
@@ -18,7 +15,7 @@ import { Space, Spin, Tabs } from "antd";
 
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { login, reset } from "../../features/auth/authSlice";
 
@@ -46,6 +43,11 @@ const LoginAntd = () => {
   const { email, password } = formData;
 
   const [loginType, setLoginType] = useState("login");
+
+  const tubsItems = [
+    { label: "already have an account?", key: "login" },
+    { label: "create new account", key: "register" },
+  ];
 
   useEffect(() => {
     if (isError) {
@@ -84,11 +86,11 @@ const LoginAntd = () => {
           title="Login"
           actions={
             <Space>
-            or Sign Up using:
-            <FacebookOutlined style={iconStyles} />
-            <GoogleOutlined style={iconStyles} />
-            <TwitterOutlined style={iconStyles} />
-          </Space>
+              or Sign Up using:
+              <FacebookOutlined style={iconStyles} />
+              <GoogleOutlined style={iconStyles} />
+              <TwitterOutlined style={iconStyles} />
+            </Space>
           }
         >
           <Tabs
@@ -98,9 +100,9 @@ const LoginAntd = () => {
               setLoginType(activeKey);
               navigate(`/${activeKey}`);
             }}
+            items={tubsItems}
           >
-            <Tabs.TabPane key={"login"} tab={"already have an account?"} />
-            <Tabs.TabPane key={"register"} tab={"create new account"} />
+           
           </Tabs>
 
           <>
@@ -156,13 +158,14 @@ const LoginAntd = () => {
             <ProFormCheckbox noStyle name="autoLogin">
               remmember me
             </ProFormCheckbox>
-            <a
+            <Link
+              to="/forgot-password"
               style={{
                 float: "right",
               }}
             >
               forget your password?
-            </a>
+            </Link>
           </div>
         </LoginForm>
       </div>

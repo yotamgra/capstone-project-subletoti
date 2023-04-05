@@ -21,7 +21,7 @@ const setReservation = asyncHandler(async (req, res) => {
     numberOfNights,
     totalPrice,
     guets,
-  } = req.body.reservation;
+  } = req.body;
 
   // if (!header || !price || !location) {
   //   res.status(400);

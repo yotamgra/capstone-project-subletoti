@@ -5,7 +5,10 @@
   border-radius: 12px;
   padding: 24px;
   box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
-  width: 40%;
+  width: 80%;
+  @media screen and (min-width: 750px) {
+    width: 40%;
+  }
 
   header {
     display: flex;
@@ -40,6 +43,7 @@
       display: flex;
       flex-direction: row;
       justify-content: space-between;
+      cursor: pointer;
 
       border: 1px solid rgb(221, 221, 221);
       border-radius: 12px;
@@ -115,14 +119,14 @@
       border: 1px solid rgb(221, 221, 221);
       border-radius: 12px;
     }
-    .guests-close-button-container{
+    .guests-close-button-container {
       display: flex;
       justify-content: end;
-      .guests-close-button{
+      .guests-close-button {
         border-radius: 10px;
         font-family: inherit;
         font-weight: bold;
-        margin:20px 10px 10px 10px
+        margin: 20px 10px 10px 10px;
       }
     }
   }
@@ -141,32 +145,58 @@
       padding: 8px;
       letter-spacing: 1px;
     }
-    .reserve-button:hover{
-      background-color:#b20f4e
+    .reserve-button:hover {
+      background-color: #b20f4e;
     }
-  
   }
-  .wont-charge-para{
+  .wont-charge-para {
     text-align: center;
   }
-  .price-details-container{
+  .price-details-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 40px;
     padding: 0 10px;
 
-    .price-details{
+    .price-details {
       margin: 0;
     }
   }
   .border-total {
     border-bottom: 1px solid rgb(221, 221, 221);
   }
-  .bold-total{
+  .bold-total {
     font-weight: bold;
   }
 }
-.mobile{
-  width: 80%;
+
+.date-picker-modal .ant-modal-content {
+  width: 390px;
+  @media screen and (min-width: 450px) {
+    width: 450px;
+  }
+  @media screen and (min-width: 830px) {
+    width: 800px;
+  }
+}
+.ant-modal {
+  transform: translate(-4.5%, -10%);
+  @media screen and (min-width: 400px) {
+    transform: translate(2%, -10%);
+  }
+  @media screen and (min-width: 830px){
+    
+  }
+}
+.ant-modal-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@media screen and (min-width: 830px) {
+  /* Move the modal to the center of the screen */
+  .ant-modal {
+    transform: translate(-25%, -10%);
+  }
 }

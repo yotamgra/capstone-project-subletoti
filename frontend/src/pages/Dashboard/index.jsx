@@ -9,16 +9,14 @@ import { Spin } from "antd";
 import DrawerForm from "../../components/DrawerForm";
 import MobilePostForm from "../../components/MobilePostForm";
 
-
 function Dashboard() {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.auth);
+
   const { posts, isLoading, isError, message } = useSelector(
     (state) => state.posts
   );
-  const shouldDispatch = useRef(true);
 
   const [drawerWidth, setDrawerWidth] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
@@ -53,20 +51,13 @@ function Dashboard() {
   }, []);
 
   useEffect(() => {
-    if (!user) {
-      navigate("/login");
-    }
-  }, [user, navigate]);
-
-  useEffect(() => {
     if (isError) {
       toast.error(message);
     }
-    if (shouldDispatch.current && user) {
-      shouldDispatch.current = false;
+    if (user) {
       dispatch(getAllPosts());
     }
-  }, [dispatch, isError, message, user]);
+  }, [dispatch, user, isError, message]);
 
   if (isLoading) {
     return (

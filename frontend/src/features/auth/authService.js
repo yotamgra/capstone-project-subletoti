@@ -16,7 +16,6 @@ const register = async (userData) => {
 //Login user
 const login = async (userData) => {
   const response = await axios.post(API_URL + "login", userData);
-  console.log("response",response);
 
   if (response.data) {
     localStorage.setItem("user", JSON.stringify(response.data));
@@ -24,9 +23,17 @@ const login = async (userData) => {
   return response.data;
 };
 
+//Forgot password
+const forgotPassword = async (email) => {
+  const response = await axios.post(API_URL + "forgot-password", email);
+
+  return response.data
+};
+
 const authService = {
   register,
   login,
+  forgotPassword
 };
 
 export default authService;
